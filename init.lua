@@ -39,7 +39,8 @@ if vim.g.neovide then
 	vim.g.neovide_macos_simple_fullscreen = false
 end
 
-require("config.cmp")
+-- require("config.cmp")
+
 require("config.lualine")
 require("krust").render()
 require("config.inline_diag")
@@ -55,6 +56,7 @@ require("themery").setup({
 		"kanagawa",
 		"kanagawa-paper-ink",
 		"kanagawa-dragon",
+		"koda",
 		"everforest",
 		"rose-pine",
 		{

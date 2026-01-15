@@ -9,7 +9,7 @@ cmp.setup({
 	-- Minimal window styling - no documentation window
 	window = {
 		completion = {
-			border = "none",
+			border = "single",
 			-- winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
 		},
 		-- Remove documentation window completely

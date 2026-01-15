@@ -1,7 +1,6 @@
 return {
 	"saghen/blink.cmp",
 	opts = {
-
 		cmdline = { enabled = false },
 		keymap = {
 			preset = "none",
@@ -34,17 +33,80 @@ return {
 				},
 			},
 			menu = {
+				border = "single",
 				scrollbar = false,
-				border = "none",
 				draw = {
 					treesitter = { "lsp" },
 					columns = {
-						{ "label", gap = 1 },
-						{ "label_description", gap = 1 },
 						{ "kind" },
+						{ "label", gap = 1 },
+					},
+					components = {
+						kind = {
+							text = function(ctx)
+								local kind_labels = {
+									Function = "fn",
+									Method = "meth",
+									Variable = "var",
+									Field = "field",
+									Class = "cls",
+									Interface = "iface",
+									Module = "mod",
+									Property = "prop",
+									Constructor = "ctor",
+									Enum = "enum",
+									Keyword = "kw",
+									Snippet = "snip",
+									Text = "txt",
+									Unit = "unit",
+									Value = "val",
+									Color = "clr",
+									File = "file",
+									Reference = "ref",
+									Folder = "dir",
+									EnumMember = "enm",
+									Constant = "const",
+									Struct = "struct",
+									Event = "evt",
+									Operator = "op",
+									TypeParameter = "T",
+								}
+								return kind_labels[ctx.kind] or ctx.kind
+							end,
+						},
+						label = {
+							text = function(ctx)
+								local label = ctx.label
+								local detail = ctx.item.detail or ""
+								-- Clean detail
+								detail = detail:gsub("%s*%(%s*use%s+[^)]*%)", "")
+								detail = detail:gsub("~", "")
+								detail = detail:gsub("%s+", " ")
+
+								if ctx.kind == "Function" or ctx.kind == "Method" then
+									local args = detail:match("%b()") or "()"
+									local ret = detail:match("%)%s*%->%s*(.+)") or ""
+									label = label .. " " .. args
+									if ret ~= "" then
+										label = label .. " -> " .. ret
+									end
+								end
+								return label
+							end,
+						},
+						source_name = {
+							text = function(ctx)
+								local source_map = {
+									lsp = "LSP",
+									buffer = "Buf",
+									path = "Path",
+									snippets = "Snip",
+								}
+								return source_map[ctx.source_name] or ctx.source_name
+							end,
+						},
 					},
 				},
-				winblend = 20,
 			},
 			documentation = {
 				auto_show = false,
