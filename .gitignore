@@ -7,3 +7,5 @@ foo.*
 *.log
 data
 lua/project2.lua
+
+.DS_Store
