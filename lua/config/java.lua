@@ -1,0 +1,24 @@
+-- require("java").setup({
+-- 	checks = {
+-- 		nvim_version = true, -- Check Neovim version
+-- 		nvim_jdtls_conflict = true, -- Check for nvim-jdtls conflict
+-- 	},
+-- 	lombok = {
+-- 		enable = true,
+-- 		version = "1.18.42",
+-- 	},
+-- 	java_test = {
+-- 		enable = true,
+-- 		version = "0.40.1",
+-- 	},
+--
+-- 	java_debug_adapter = {
+-- 		enable = true,
+-- 		version = "0.58.2",
+-- 	},
+--
+-- 	spring_boot_tools = {
+-- 		enable = true,
+-- 		version = "1.55.1",
+-- 	},
+-- })
