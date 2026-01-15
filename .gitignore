@@ -6,6 +6,6 @@ debug
 foo.*
 *.log
 data
-lua/project2.lua
+lua/plugins/project2.lua
 
 .DS_Store
