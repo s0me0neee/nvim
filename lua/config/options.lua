@@ -4,7 +4,7 @@
 --
 -- vim.opt.winbar = "%=%m %f"
 
-vim.opt.clipboard = ""
+-- vim.opt.clipboard = ""
 vim.g.mapleader = " "
 vim.opt.termguicolors = true
 vim.opt.autoindent = true
