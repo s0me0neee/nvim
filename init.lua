@@ -1,17 +1,6 @@
 -- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
 
-vim.opt.clipboard = ""
-vim.opt.termguicolors = true
-vim.opt.autoindent = true
-vim.opt.smartindent = true
-vim.opt.expandtab = false -- Use actual tab characters, not spaces
-vim.opt.tabstop = 4 -- Display width of tab characters
-vim.opt.shiftwidth = 4 -- Number of spaces for auto-indentation
-vim.opt.softtabstop = 4 -- Number of spaces tab key inserts/deletes
-vim.opt.swapfile = false
-vim.opt.cursorline = false
-
 if vim.g.neovide then
 	vim.keymap.set("v", "<D-c>", '"+y') -- Copy
 	vim.keymap.set("n", "<D-v>", '"+P') -- Paste normal mode
@@ -40,8 +29,34 @@ if vim.g.neovide then
 end
 
 -- require("config.cmp")
-
 require("config.lualine")
+require("oil").setup({
+	keymaps = {
+		-- Neo-tree style: open file
+		["<CR>"] = "actions.select",
+		["l"] = "actions.select",
+
+		-- Splits
+		-- ["v"] = { "actions.select", opts = { vertical = true } },
+		-- ["s"] = { "actions.select", opts = { horizontal = true } },
+		-- ["t"] = { "actions.select", opts = { tab = true } },
+
+		-- Navigation like Neo-tree
+		["h"] = { "actions.parent", mode = "n" },
+
+		-- Preview (Neo-tree uses P)
+		["P"] = "actions.preview",
+
+		-- Refresh (Neo-tree uses R)
+		["R"] = "actions.refresh",
+
+		-- Close
+		["q"] = { "actions.close", mode = "n" },
+
+		-- Toggle hidden files
+		["H"] = { "actions.toggle_hidden", mode = "n" },
+	},
+})
 require("krust").render()
 require("config.inline_diag")
 require("themery").setup({
@@ -52,6 +67,7 @@ require("themery").setup({
 		"tokyodark",
 		"catppuccin-mocha",
 		"vague",
+		"heap",
 		"lackluster-hack",
 		"kanagawa",
 		"kanagawa-paper-ink",
@@ -67,6 +83,9 @@ require("themery").setup({
 	},
 	livePreview = true,
 })
+
+vim.keymap.set("n", "<Space>e", ":Oil<CR>")
+vim.keymap.set("n", "<Space>E", ":Neotree toggle position=left<CR>")
 
 -- vim.api.nvim_set_hl(0, "normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })

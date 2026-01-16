@@ -3,7 +3,19 @@
 -- Add any additional options here
 --
 -- vim.opt.winbar = "%=%m %f"
+
+vim.opt.clipboard = ""
 vim.g.mapleader = " "
+vim.opt.termguicolors = true
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+vim.opt.expandtab = false -- Use actual tab characters, not spaces
+vim.opt.tabstop = 4 -- Display width of tab characters
+vim.opt.shiftwidth = 4 -- Number of spaces for auto-indentation
+vim.opt.softtabstop = 4 -- Number of spaces tab key inserts/deletes
+vim.opt.swapfile = false
+vim.opt.cursorline = false
+
 ---- Add semicolon at end of line and jump to end
 vim.keymap.set({ "i", "n" }, "<C-;>", function()
 	if vim.fn.mode() == "i" then
