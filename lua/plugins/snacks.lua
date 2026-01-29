@@ -2,6 +2,9 @@ return {
 	{
 		"snacks.nvim",
 		opts = {
+			bigfile = {
+				line_length = 4000,
+			},
 			dashboard = {
 				pane_gap = -2, -- empty columns between vertical panes
 				preset = {

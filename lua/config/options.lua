@@ -15,6 +15,7 @@ vim.opt.shiftwidth = 4 -- Number of spaces for auto-indentation
 vim.opt.softtabstop = 4 -- Number of spaces tab key inserts/deletes
 vim.opt.swapfile = false
 vim.opt.cursorline = false
+vim.g.bigfile_disable = false
 
 ---- Add semicolon at end of line and jump to end
 vim.keymap.set({ "i", "n" }, "<C-;>", function()
