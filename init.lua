@@ -67,13 +67,9 @@ require("themery").setup({
 		"tokyodark",
 		"catppuccin-mocha",
 		"vague",
-		"heap",
 		"lackluster-hack",
 		"kanagawa",
 		"kanagawa-paper-ink",
-		"kanagawa-dragon",
-		"koda",
-		"everforest",
 		"rose-pine",
 		{
 			name = "sakura",
@@ -84,8 +80,8 @@ require("themery").setup({
 	livePreview = true,
 })
 
-vim.keymap.set("n", "<Space>e", ":Oil<CR>")
-vim.keymap.set("n", "<Space>E", ":Neotree toggle position=left<CR>")
+-- vim.keymap.set("n", "<Space>e", ":Oil<CR>")
+-- vim.keymap.set("n", "<Space>E", ":Neotree toggle position=left<CR>")
 
 -- vim.api.nvim_set_hl(0, "normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
