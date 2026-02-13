@@ -2,6 +2,7 @@ return {
 	-- With lazy.nvim
 	{
 		"alexpasmantier/krust.nvim",
+		lazy = true,
 		ft = "rust",
 		opts = {
 			keymap = "<leader>cd", -- Set a keymap for Rust buffers (default: false)

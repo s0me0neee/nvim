@@ -1,6 +1,7 @@
 return {
 	{
 		"olexsmir/gopher.nvim",
+		lazy = true,
 		ft = "go",
 		-- branch = "develop"
 		-- (optional) will update plugin's deps on every update

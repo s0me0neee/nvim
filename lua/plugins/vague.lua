@@ -5,7 +5,7 @@ return {
 		lazy = true,
 		config = function()
 			require("vague").setup({
-				-- transparent = true, -- don't set background
+				transparent = true, -- don't set background
 			})
 		end,
 		lazy = false,

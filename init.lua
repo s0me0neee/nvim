@@ -29,40 +29,43 @@ if vim.g.neovide then
 end
 
 -- require("config.cmp")
+-- require("copilot").setup()
 require("config.lualine")
-require("oil").setup({
-	keymaps = {
-		-- Neo-tree style: open file
-		["<CR>"] = "actions.select",
-		["l"] = "actions.select",
-
-		-- Splits
-		-- ["v"] = { "actions.select", opts = { vertical = true } },
-		-- ["s"] = { "actions.select", opts = { horizontal = true } },
-		-- ["t"] = { "actions.select", opts = { tab = true } },
-
-		-- Navigation like Neo-tree
-		["h"] = { "actions.parent", mode = "n" },
-
-		-- Preview (Neo-tree uses P)
-		["P"] = "actions.preview",
-
-		-- Refresh (Neo-tree uses R)
-		["R"] = "actions.refresh",
-
-		-- Close
-		["q"] = { "actions.close", mode = "n" },
-
-		-- Toggle hidden files
-		["H"] = { "actions.toggle_hidden", mode = "n" },
-	},
-})
+-- require("oil").setup({
+-- 	keymaps = {
+-- 		-- Neo-tree style: open file
+-- 		["<CR>"] = "actions.select",
+-- 		["l"] = "actions.select",
+--
+-- 		-- Splits
+-- 		-- ["v"] = { "actions.select", opts = { vertical = true } },
+-- 		-- ["s"] = { "actions.select", opts = { horizontal = true } },
+-- 		-- ["t"] = { "actions.select", opts = { tab = true } },
+--
+-- 		-- Navigation like Neo-tree
+-- 		["h"] = { "actions.parent", mode = "n" },
+--
+-- 		-- Preview (Neo-tree uses P)
+-- 		["P"] = "actions.preview",
+--
+-- 		-- Refresh (Neo-tree uses R)
+-- 		["R"] = "actions.refresh",
+--
+-- 		-- Close
+-- 		["q"] = { "actions.close", mode = "n" },
+--
+-- 		-- Toggle hidden files
+-- 		["H"] = { "actions.toggle_hidden", mode = "n" },
+-- 	},
+-- })
 require("krust").render()
 require("config.inline_diag")
 require("themery").setup({
 	themes = {
 		"gruvbox-material",
 		"gruvbox-baby",
+		"pinkmare",
+		"witch-dark",
 		{ name = "tokyonight", colorscheme = "tokyonight", before = [[require("config.tokyonight")]] },
 		"tokyodark",
 		"catppuccin-mocha",

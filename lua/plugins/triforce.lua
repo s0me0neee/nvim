@@ -1,6 +1,7 @@
 return {
 	{
 		"gisketch/triforce.nvim",
+		lazy = true,
 		dependencies = {
 			"nvzone/volt",
 		},

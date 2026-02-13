@@ -1,6 +1,7 @@
 return {
 	{
 		"saecki/crates.nvim",
+		lazy = true,
 		ft = { "toml" },
 		config = function()
 			require("crates").setup({

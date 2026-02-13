@@ -1,5 +1,8 @@
 return {
 	"saghen/blink.cmp",
+	dependencies = {
+		"fang2hou/blink-copilot",
+	},
 	opts = {
 		cmdline = { enabled = false },
 		keymap = {
@@ -11,7 +14,20 @@ return {
 			["<CR>"] = { "select_and_accept", "fallback" },
 		},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer" },
+			default = { "lsp", "path", "snippets", "buffer", "copilot" },
+			providers = {
+				copilot = {
+					name = "copilot",
+					module = "blink-copilot",
+					score_offset = 100,
+					async = true,
+					opts = {
+						max_completions = 2,
+						max_attempts = 3,
+						kind_name = "Copilot",
+					},
+				},
+			},
 		},
 		completion = {
 			keyword = { range = "prefix" },
@@ -33,10 +49,10 @@ return {
 				},
 			},
 			menu = {
-				border = "single",
+				border = "none",
 				scrollbar = false,
 				draw = {
-					treesitter = { "lsp" },
+					treesitter = { "lsp", "snippets", "buffer", "copilot" },
 					columns = {
 						{ "kind" },
 						{ "label", gap = 1 },
@@ -70,6 +86,7 @@ return {
 									Event = "evt",
 									Operator = "op",
 									TypeParameter = "T",
+									Copilot = "",
 								}
 								return kind_labels[ctx.kind] or ctx.kind
 							end,
