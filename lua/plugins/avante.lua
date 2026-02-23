@@ -18,6 +18,7 @@ return {
 	-- },
 	{
 		"yetone/avante.nvim",
+		lazy = true,
 		event = "VeryLazy",
 		opts = {
 			provider = "copilot", -- Set Copilot as the default AI

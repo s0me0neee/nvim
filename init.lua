@@ -28,44 +28,19 @@ if vim.g.neovide then
 	vim.g.neovide_macos_simple_fullscreen = false
 end
 
+vim.g.copilot_filetypes = { markdown = true }
+
 -- require("config.cmp")
--- require("copilot").setup()
 require("config.lualine")
--- require("oil").setup({
--- 	keymaps = {
--- 		-- Neo-tree style: open file
--- 		["<CR>"] = "actions.select",
--- 		["l"] = "actions.select",
---
--- 		-- Splits
--- 		-- ["v"] = { "actions.select", opts = { vertical = true } },
--- 		-- ["s"] = { "actions.select", opts = { horizontal = true } },
--- 		-- ["t"] = { "actions.select", opts = { tab = true } },
---
--- 		-- Navigation like Neo-tree
--- 		["h"] = { "actions.parent", mode = "n" },
---
--- 		-- Preview (Neo-tree uses P)
--- 		["P"] = "actions.preview",
---
--- 		-- Refresh (Neo-tree uses R)
--- 		["R"] = "actions.refresh",
---
--- 		-- Close
--- 		["q"] = { "actions.close", mode = "n" },
---
--- 		-- Toggle hidden files
--- 		["H"] = { "actions.toggle_hidden", mode = "n" },
--- 	},
--- })
 require("krust").render()
 require("config.inline_diag")
 require("themery").setup({
 	themes = {
-		"gruvbox-material",
+		"ayu",
 		"gruvbox-baby",
 		"pinkmare",
 		"witch-dark",
+		"aetheramethyst-eclipse",
 		{ name = "tokyonight", colorscheme = "tokyonight", before = [[require("config.tokyonight")]] },
 		"tokyodark",
 		"catppuccin-mocha",
@@ -82,9 +57,6 @@ require("themery").setup({
 	},
 	livePreview = true,
 })
-
--- vim.keymap.set("n", "<Space>e", ":Oil<CR>")
--- vim.keymap.set("n", "<Space>E", ":Neotree toggle position=left<CR>")
 
 -- vim.api.nvim_set_hl(0, "normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
