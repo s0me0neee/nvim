@@ -39,7 +39,7 @@ require("themery").setup({
 		"ayu-dark",
 		"gruvbox-baby",
 		"pinkmare",
-		"aetheramethyst-eclipse",
+		-- "aetheramethyst-eclipse",
 		"deepspace",
 		{ name = "tokyonight", colorscheme = "tokyonight", before = [[require("config.tokyonight")]] },
 		"tokyodark",
