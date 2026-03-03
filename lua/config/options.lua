@@ -52,11 +52,21 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "rust",
 	callback = function()
-		vim.keymap.set("n", "<leader>k", function()
+		vim.keymap.set("n", "<leader>ck", function()
 			vim.cmd.RustLsp({ "hover", "actions" })
 		end, { buffer = true, desc = "Show Rust documentation" })
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "rust",
+	callback = function()
+		vim.keymap.set("n", "<leader>cx", function()
+			vim.cmd.RustLsp("expandMacro")
+		end, { buffer = true, desc = "Expand macro" })
+	end,
+})
+
 vim.keymap.set("n", "<leader>P", ":NeovimProjectHistory<CR>")
 
 vim.keymap.set("n", "<leader>ml", ":MarksListBuf<CR>")
@@ -69,8 +79,8 @@ vim.lsp.config("harper_ls", {
 	filetypes = { "markdown", "text" },
 })
 
-vim.g.lazyvim_python_lsp = "basedpyright"
--- vim.g.lazyvim_python_lsp = "pyright"
+-- vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.lazyvim_python_lsp = "pyright"
 
 vim.keymap.set("n", "<leader>h", ":lua Snacks.dashboard.open()<CR>")
 vim.keymap.set("n", "<leader>t", ":Themery<CR>")
