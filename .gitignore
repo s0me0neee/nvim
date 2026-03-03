@@ -7,5 +7,6 @@ foo.*
 *.log
 data
 lua/plugins/project2.lua
+lazy-lock.json
 
 .DS_Store
