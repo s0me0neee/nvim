@@ -1,6 +1,6 @@
 return {
-	{
-		"AetherSyscall/AetherAmethyst.nvim",
-		lazy = true,
-	},
+	-- {
+	-- 	"AetherSyscall/AetherAmethyst.nvim",
+	-- 	lazy = true,
+	-- },
 }
