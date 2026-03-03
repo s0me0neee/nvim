@@ -36,11 +36,11 @@ require("krust").render()
 require("config.inline_diag")
 require("themery").setup({
 	themes = {
-		"ayu",
+		"ayu-dark",
 		"gruvbox-baby",
 		"pinkmare",
-		"witch-dark",
 		"aetheramethyst-eclipse",
+		"deepspace",
 		{ name = "tokyonight", colorscheme = "tokyonight", before = [[require("config.tokyonight")]] },
 		"tokyodark",
 		"catppuccin-mocha",
