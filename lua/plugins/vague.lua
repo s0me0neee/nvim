@@ -8,6 +8,5 @@ return {
 				transparent = true, -- don't set background
 			})
 		end,
-		lazy = false,
 	},
 }
