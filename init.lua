@@ -45,7 +45,6 @@ require("themery").setup({
 		"vague",
 		"lackluster-hack",
 		"kanagawa",
-		"shale",
 		"rose-pine",
 		{
 			name = "sakura",

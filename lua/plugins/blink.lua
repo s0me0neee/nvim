@@ -1,5 +1,6 @@
 return {
 	"saghen/blink.cmp",
+	lazy = false,
 	dependencies = {
 		"fang2hou/blink-copilot",
 	},
@@ -127,7 +128,7 @@ return {
 			},
 			documentation = {
 				auto_show = false,
-				auto_show_delay_ms = 200,
+				auto_show_delay_ms = 250,
 				window = {
 					border = "none",
 					max_width = math.floor(vim.o.columns * 0.4),
