@@ -43,6 +43,8 @@ require("themery").setup({
 		"tokyodark",
 		"catppuccin-mocha",
 		"vague",
+		"carvion",
+		"lake-dweller",
 		"lackluster-hack",
 		"kanagawa",
 		"rose-pine",
