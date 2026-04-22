@@ -31,32 +31,33 @@ end
 vim.g.copilot_filetypes = { markdown = true }
 
 -- require("config.cmp")
-require("config.lualine")
-require("krust").render()
-require("config.inline_diag")
-require("themery").setup({
-	themes = {
-		"ayu-dark",
-		"gruvbox-baby",
-		"pinkmare",
-		"tokyonight",
-		"tokyodark",
-		"catppuccin-mocha",
-		"vague",
-		"carvion",
-		"lake-dweller",
-		"lackluster-hack",
-		"kanagawa",
-		"rose-pine",
-		{
-			name = "sakura",
-			colorscheme = "sakura",
-			before = [[vim.opt.background = "dark"]],
+if not vim.g.vscode then
+	require("config.lualine")
+	require("krust").render()
+	require("config.inline_diag")
+	require("themery").setup({
+		themes = {
+			"ayu-dark",
+			"gruvbox-baby",
+			"pinkmare",
+			"tokyonight",
+			"tokyodark",
+			"catppuccin-mocha",
+			"vague",
+			"carvion",
+			"lake-dweller",
+			"lackluster-hack",
+			"kanagawa",
+			"rose-pine",
+			{
+				name = "sakura",
+				colorscheme = "sakura",
+				before = [[vim.opt.background = "dark"]],
+			},
 		},
-	},
-	livePreview = true,
-})
-
+		livePreview = true,
+	})
+end
 -- vim.api.nvim_set_hl(0, "normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
