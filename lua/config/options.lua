@@ -17,6 +17,7 @@ vim.opt.softtabstop = 4 -- Number of spaces tab key inserts/deletes
 vim.opt.swapfile = false
 vim.opt.cursorline = false
 vim.g.bigfile_disable = false
+vim.opt.background = "dark"
 
 ---- Add semicolon at end of line and jump to end
 vim.keymap.set({ "i", "n" }, "<C-;>", function()
@@ -30,7 +31,6 @@ end, { expr = true, desc = "Add semicolon at end of line" })
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "nim",
 	callback = function()
-		-- Use spaces instead of tabs and don't coalesce 4 spaces as one tab step
 		vim.bo.expandtab = true
 		vim.bo.shiftwidth = 4
 		vim.bo.tabstop = 4
@@ -38,7 +38,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- In Rust files, use Rust-specific documentation
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "rust",
 	callback = function()
@@ -48,7 +47,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- In Rust files, use Rust-specific documentation
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "rust",
 	callback = function()
@@ -67,9 +65,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.keymap.set("n", "<leader>P", ":NeovimProjectHistory<CR>")
-
-vim.keymap.set("n", "<leader>ml", ":MarksListBuf<CR>")
 vim.keymap.set("n", "<leader>fv", ":VenvSelect<CR>")
 vim.keymap.set("n", "<leader>fp", function()
 	Snacks.picker.projects()
@@ -79,7 +74,6 @@ vim.lsp.config("harper_ls", {
 	filetypes = { "markdown", "text" },
 })
 
--- vim.g.lazyvim_python_lsp = "basedpyright"
 vim.g.lazyvim_python_lsp = "pyright"
 
 vim.keymap.set("n", "<leader>h", ":lua Snacks.dashboard.open()<CR>")
