@@ -45,6 +45,7 @@ if not vim.g.vscode then
 			"vague",
 			"lake-dweller",
 			"lackluster-hack",
+			"lackluster-night",
 			"kanagawa",
 			"onedark",
 			"rose-pine",
