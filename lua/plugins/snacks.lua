@@ -1,9 +1,26 @@
 return {
 	{
 		"snacks.nvim",
+		lazy = false,
 		opts = {
+			animate = {
+				enabled = false,
+			},
 			bigfile = {
+				enabled = false,
 				line_length = 4000,
+			},
+			dim = {
+				enabled = false,
+			},
+			zen = {
+				enabled = false,
+			},
+			scroll = {
+				enabled = false,
+			},
+			scope = {
+				enabled = false,
 			},
 			dashboard = {
 				pane_gap = -2, -- empty columns between vertical panes
