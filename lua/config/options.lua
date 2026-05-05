@@ -19,15 +19,6 @@ vim.opt.cursorline = false
 vim.g.bigfile_disable = false
 vim.opt.background = "dark"
 
----- Add semicolon at end of line and jump to end
-vim.keymap.set({ "i", "n" }, "<C-;>", function()
-	if vim.fn.mode() == "i" then
-		return "<Esc>A;<Esc>"
-	else
-		return "A;<Esc>"
-	end
-end, { expr = true, desc = "Add semicolon at end of line" })
-
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "nim",
 	callback = function()
@@ -65,7 +56,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.keymap.set("n", "<leader>fv", ":VenvSelect<CR>")
 vim.keymap.set("n", "<leader>fp", function()
 	Snacks.picker.projects()
 end, { desc = "Projects" })
