@@ -33,17 +33,13 @@ vim.g.copilot_filetypes = { markdown = true }
 -- require("config.cmp")
 if not vim.g.vscode then
 	require("config.lualine")
-	require("krust").render()
-	require("config.inline_diag")
 	require("themery").setup({
 		themes = {
 			"ayu-dark",
-			"gruvbox-baby",
 			"tokyonight",
 			"tokyodark",
 			"catppuccin-mocha",
 			"vague",
-			"lake-dweller",
 			"lackluster-hack",
 			"lackluster-night",
 			"kanagawa",
@@ -51,8 +47,6 @@ if not vim.g.vscode then
 			"rose-pine",
 			"sakura",
 			"monokai-pro-octagon",
-			"oxocarbon",
-			"Aquavium",
 		},
 		livePreview = true,
 	})

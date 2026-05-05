@@ -40,7 +40,7 @@ return {
 			},
 			accept = {
 				auto_brackets = {
-					enabled = false,
+					enabled = true,
 				},
 			},
 			list = {
@@ -54,10 +54,11 @@ return {
 				scrollbar = false,
 				draw = {
 					treesitter = { "lsp", "snippets", "buffer", "copilot" },
-					columns = {
-						{ "kind" },
-						{ "label", gap = 1 },
-					},
+					-- columns = {
+					-- 	{ "kind" },
+					-- 	{ "label", gap = 1 },
+					-- },
+					columns = { { "kind_icon" }, { "label", gap = 1 } },
 					components = {
 						kind = {
 							text = function(ctx)
@@ -92,26 +93,35 @@ return {
 								return kind_labels[ctx.kind] or ctx.kind
 							end,
 						},
+						-- label = {
+						-- 	text = function(ctx)
+						-- 		local label = ctx.label
+						-- 		local detail = ctx.item.detail or ""
+						-- 		-- Clean detail
+						-- 		detail = detail:gsub("%s*%(%s*use%s+[^)]*%)", "")
+						-- 		detail = detail:gsub("~", "")
+						-- 		detail = detail:gsub("%s+", " ")
+						--
+						-- 		if ctx.kind == "Function" or ctx.kind == "Method" then
+						-- 			local args = detail:match("%b()") or "()"
+						-- 			local ret = detail:match("%)%s*%->%s*(.+)") or ""
+						-- 			label = label .. " " .. args
+						-- 			if ret ~= "" then
+						-- 				label = label .. " -> " .. ret
+						-- 			end
+						-- 		end
+						-- 		return label
+						-- 	end,
+						-- },
 						label = {
 							text = function(ctx)
-								local label = ctx.label
-								local detail = ctx.item.detail or ""
-								-- Clean detail
-								detail = detail:gsub("%s*%(%s*use%s+[^)]*%)", "")
-								detail = detail:gsub("~", "")
-								detail = detail:gsub("%s+", " ")
-
-								if ctx.kind == "Function" or ctx.kind == "Method" then
-									local args = detail:match("%b()") or "()"
-									local ret = detail:match("%)%s*%->%s*(.+)") or ""
-									label = label .. " " .. args
-									if ret ~= "" then
-										label = label .. " -> " .. ret
-									end
-								end
-								return label
+								return require("colorful-menu").blink_components_text(ctx)
+							end,
+							highlight = function(ctx)
+								return require("colorful-menu").blink_components_highlight(ctx)
 							end,
 						},
+
 						source_name = {
 							text = function(ctx)
 								local source_map = {
