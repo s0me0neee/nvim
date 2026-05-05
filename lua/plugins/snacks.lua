@@ -60,13 +60,18 @@ return {
 				enabled = false,
 			},
 			dashboard = {
-				sections = vim.list_extend({
-					unpack(sections),
-				}, {
-					pane = 2,
+				-- sections = vim.list_extend({
+				-- 	unpack(sections),
+				-- }, {
+				-- 	pane = 2,
+				-- 	{ section = "keys", gap = 1, padding = 0 },
+				-- 	{ section = "startup" },
+				-- }),
+				sections = {
+					{ section = "header" },
 					{ section = "keys", gap = 1, padding = 0 },
 					{ section = "startup" },
-				}),
+				},
 				pane_gap = -4, -- empty columns between vertical panes
 				preset = {
 					pick = function(cmd, opts)
