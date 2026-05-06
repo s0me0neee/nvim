@@ -8,6 +8,7 @@
 vim.g.mapleader = " "
 vim.g.copilot_enabled = true
 vim.opt.termguicolors = true
+vim.opt.autochdir = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.expandtab = false -- Use actual tab characters, not spaces

@@ -12,12 +12,15 @@ return {
 		presets = {
 			bottom_search = true,
 			command_palette = true,
+			inc_rename = false,
 			long_message_to_split = true,
-			inc_rename = true,
 			lsp_doc_border = false,
 		},
 		cmdline = {
 			view = "cmdline",
+			format = {
+				cmdline = { pattern = "^:", icon = ">", lang = "vim" },
+			},
 		},
 		messages = {
 			enabled = true, -- enables the Noice messages UI

@@ -92,6 +92,17 @@ require("lualine").setup({
 				end,
 				-- color = { fg = "#ff9e64" }, -- auto theme will override this to match your scheme
 			},
+			{
+				"macro",
+				fmt = function()
+					local reg = vim.fn.reg_recording()
+					if reg ~= "" then
+						return "Recording @" .. reg
+					end
+					return nil
+				end,
+				draw_empty = false,
+			},
 			"filetype",
 		},
 
