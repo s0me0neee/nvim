@@ -2,8 +2,13 @@ return {
 	"saghen/blink.cmp",
 	lazy = false,
 	dependencies = {
-		"fang2hou/blink-copilot",
+		"milanglacier/minuet-ai.nvim",
 	},
+	config = function(_, opts)
+		-- Inject the minuet keymap here, where require('minuet') is safe
+		opts.keymap["<A-y>"] = require("minuet").make_blink_map()
+		require("blink.cmp").setup(opts)
+	end,
 	opts = {
 		cmdline = { enabled = false },
 		keymap = {
@@ -15,18 +20,20 @@ return {
 			["<CR>"] = { "select_and_accept", "fallback" },
 		},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "copilot" },
+			default = {
+				"lsp",
+				"path",
+				"snippets",
+				"buffer",
+				--"minuet"
+			},
 			providers = {
-				copilot = {
-					name = "copilot",
-					module = "blink-copilot",
-					score_offset = 100,
+				minuet = {
+					name = "minuet",
+					module = "minuet.blink",
 					async = true,
-					opts = {
-						max_completions = 0,
-						max_attempts = 2,
-						kind_name = "Copilot",
-					},
+					timeout_ms = 3000, -- should match request_timeout * 1000
+					score_offset = 50, -- boost Claude suggestions higher in the list
 				},
 			},
 		},
@@ -53,66 +60,18 @@ return {
 				border = "none",
 				scrollbar = false,
 				draw = {
-					treesitter = { "lsp", "snippets", "buffer", "copilot" },
-					-- columns = {
-					-- 	{ "kind" },
-					-- 	{ "label", gap = 1 },
-					-- },
+					treesitter = { "lsp", "snippets", "buffer" },
 					columns = { { "kind_icon" }, { "label", gap = 1 } },
 					components = {
 						kind = {
 							text = function(ctx)
-								local kind_labels = {
-									Function = "fn",
-									Method = "meth",
-									Variable = "var",
-									Field = "field",
-									Class = "cls",
-									Interface = "iface",
-									Module = "mod",
-									Property = "prop",
-									Constructor = "ctor",
-									Enum = "enum",
-									Keyword = "kw",
-									Snippet = "snip",
-									Text = "txt",
-									Unit = "unit",
-									Value = "val",
-									Color = "clr",
-									File = "file",
-									Reference = "ref",
-									Folder = "dir",
-									EnumMember = "enm",
-									Constant = "const",
-									Struct = "struct",
-									Event = "evt",
-									Operator = "op",
-									TypeParameter = "T",
-									Copilot = "",
-								}
-								return kind_labels[ctx.kind] or ctx.kind
+								if ctx.source_name == "minuet" then
+									vim.notify("kind: " .. tostring(ctx.kind), vim.log.levels.INFO)
+								end
+								local kind_icons = { Claude = "✻" }
+								return kind_icons[ctx.kind] or ctx.kind
 							end,
 						},
-						-- label = {
-						-- 	text = function(ctx)
-						-- 		local label = ctx.label
-						-- 		local detail = ctx.item.detail or ""
-						-- 		-- Clean detail
-						-- 		detail = detail:gsub("%s*%(%s*use%s+[^)]*%)", "")
-						-- 		detail = detail:gsub("~", "")
-						-- 		detail = detail:gsub("%s+", " ")
-						--
-						-- 		if ctx.kind == "Function" or ctx.kind == "Method" then
-						-- 			local args = detail:match("%b()") or "()"
-						-- 			local ret = detail:match("%)%s*%->%s*(.+)") or ""
-						-- 			label = label .. " " .. args
-						-- 			if ret ~= "" then
-						-- 				label = label .. " -> " .. ret
-						-- 			end
-						-- 		end
-						-- 		return label
-						-- 	end,
-						-- },
 						label = {
 							text = function(ctx)
 								return require("colorful-menu").blink_components_text(ctx)

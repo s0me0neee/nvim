@@ -78,17 +78,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		})
 	end,
 })
-
-vim.keymap.set("n", "<leader>ct", function()
-	local is_enabled = vim.g.copilot_enabled ~= false
-
-	if is_enabled then
-		vim.cmd("Copilot disable")
-		vim.g.copilot_enabled = false
-		vim.notify("Copilot disabled", vim.log.levels.WARN)
-	else
-		vim.cmd("Copilot enable")
-		vim.g.copilot_enabled = true
-		vim.notify("Copilot enabled", vim.log.levels.INFO)
-	end
-end, { desc = "Toggle Copilot completion" })
