@@ -1,14 +1,7 @@
 return {
 	"saghen/blink.cmp",
 	lazy = false,
-	dependencies = {
-		"milanglacier/minuet-ai.nvim",
-	},
-	config = function(_, opts)
-		-- Inject the minuet keymap here, where require('minuet') is safe
-		opts.keymap["<A-y>"] = require("minuet").make_blink_map()
-		require("blink.cmp").setup(opts)
-	end,
+	dependencies = {},
 	opts = {
 		cmdline = { enabled = false },
 		keymap = {
@@ -25,17 +18,8 @@ return {
 				"path",
 				"snippets",
 				"buffer",
-				--"minuet"
 			},
-			providers = {
-				minuet = {
-					name = "minuet",
-					module = "minuet.blink",
-					async = true,
-					timeout_ms = 3000, -- should match request_timeout * 1000
-					score_offset = 50, -- boost Claude suggestions higher in the list
-				},
-			},
+			providers = {},
 		},
 		completion = {
 			keyword = { range = "prefix" },
