@@ -1,6 +1,6 @@
 require("lualine").setup({
 	options = {
-		theme = "auto", -- This is the only thing you needed to change!
+		theme = "auto",
 		component_separators = "",
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
@@ -32,21 +32,13 @@ require("lualine").setup({
 			{
 				"diagnostics",
 				sources = { "nvim_diagnostic" },
-				sections = { "error" },
-				-- diagnostics_color = { error = { fg = "#ffffff", bg = "#ff0000" } }, -- will be overridden by auto anyway
-			},
-			{
-				"diagnostics",
-				sources = { "nvim_diagnostic" },
-				sections = { "warn" },
-				-- diagnostics_color = { warn = { fg = "#ffffff", bg = "#ffa500" } },
+				sections = { "error", "warn" },
 			},
 			{ "filename", path = 1, file_status = false },
 			{
 				function()
 					return vim.bo.modified and "M" or (vim.bo.modifiable == false or vim.bo.readonly) and "R" or ""
 				end,
-				-- color = { fg = "#ffffff", bg = "#ff0000" }, -- auto will recolor this correctly
 				padding = { left = 0, right = 1 },
 			},
 			{

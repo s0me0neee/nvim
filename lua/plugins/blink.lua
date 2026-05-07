@@ -65,9 +65,6 @@ return {
 					components = {
 						kind = {
 							text = function(ctx)
-								if ctx.source_name == "minuet" then
-									vim.notify("kind: " .. tostring(ctx.kind), vim.log.levels.INFO)
-								end
 								local kind_icons = { Claude = "✻" }
 								return kind_icons[ctx.kind] or ctx.kind
 							end,

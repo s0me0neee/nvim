@@ -1,7 +1,6 @@
 return {
 	{
-		{
-			"rachartier/tiny-inline-diagnostic.nvim",
+		"rachartier/tiny-inline-diagnostic.nvim",
 			event = "VeryLazy",
 			priority = 1000,
 			opts = {
@@ -137,10 +136,9 @@ return {
 					},
 				},
 			},
-		},
-		{
-			"neovim/nvim-lspconfig",
-			opts = { diagnostics = { virtual_text = false } },
-		},
+	},
+	{
+		"neovim/nvim-lspconfig",
+		opts = { diagnostics = { virtual_text = false } },
 	},
 }

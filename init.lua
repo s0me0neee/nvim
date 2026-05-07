@@ -10,7 +10,6 @@ if vim.g.neovide then
 	vim.keymap.set("t", "<D-v>", '<C-\\><C-n>"+Pi', { noremap = true })
 	vim.o.guifont = "FiraCode Nerd Font:h15:w0"
 	vim.opt.linespace = 1
-	-- -- Helper function for transparency formatting
 	local alpha = function()
 		return string.format("%x", math.floor(255 * vim.g.transparency or 0.8))
 	end
@@ -30,7 +29,6 @@ end
 
 vim.g.copilot_filetypes = { markdown = true }
 
--- require("config.cmp")
 if not vim.g.vscode then
 	require("config.lualine")
 	require("themery").setup({
