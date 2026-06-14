@@ -77,8 +77,8 @@ return {
 				},
 			},
 			documentation = {
-				auto_show = false,
-				auto_show_delay_ms = 250,
+				auto_show = true,
+				auto_show_delay_ms = 175,
 				window = {
 					border = "none",
 					max_width = math.floor(vim.o.columns * 0.4),

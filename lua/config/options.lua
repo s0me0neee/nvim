@@ -13,6 +13,8 @@ vim.opt.cursorline = false
 vim.g.bigfile_disable = false
 vim.opt.background = "dark"
 
+--require("vim._core.ui2").enable({})
+
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "nim",
 	callback = function()
@@ -28,19 +30,19 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function()
 		vim.keymap.set("n", "<leader>r", function()
 			vim.cmd.RustLsp({ "runnables", bang = false })
-		end, { buffer = true, desc = "Show Rust runnables with args" })
+		end, { buffer = true, desc = " Rust runnables" })
 		vim.keymap.set("n", "<leader>ck", function()
 			vim.cmd.RustLsp({ "hover", "actions" })
-		end, { buffer = true, desc = "Show Rust documentation" })
+		end, { buffer = true, desc = " Rust hover actions" })
 		vim.keymap.set("n", "<leader>cx", function()
 			vim.cmd.RustLsp("expandMacro")
-		end, { buffer = true, desc = "Expand macro" })
+		end, { buffer = true, desc = " Expand macro" })
 	end,
 })
 
 vim.keymap.set("n", "<leader>fp", function()
 	Snacks.picker.projects()
-end, { desc = "Projects" })
+end, { desc = " Projects" })
 
 vim.lsp.config("harper_ls", {
 	filetypes = { "markdown", "text" },
@@ -48,11 +50,25 @@ vim.lsp.config("harper_ls", {
 
 vim.g.lazyvim_python_lsp = "pyright"
 
-vim.keymap.set("n", "<leader>h", function() Snacks.dashboard.open() end)
-vim.keymap.set("n", "<leader>t", function() vim.cmd("Themery") end)
+vim.keymap.set("n", "<leader>h", function()
+	Snacks.dashboard.open()
+end, { desc = "Dashboard" })
+vim.keymap.set("n", "<leader>t", function()
+	vim.cmd("Themery")
+end, { desc = " Themes" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.highlight.on_yank({ timeout = 500, higroup = "IncSearch" })
 	end,
 })
+
+vim.keymap.set("n", "<leader>e", function()
+	vim.cmd("Oil")
+end, { desc = "File exp" })
+
+vim.keymap.set("n", "<leader>E", function()
+	vim.cmd("Neotree")
+end, { desc = "File exp" })
+
+vim.keymap.set("n", "<leader>cG", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
