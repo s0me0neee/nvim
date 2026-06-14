@@ -16,59 +16,72 @@ vim.opt.background = "dark"
 --require("vim._core.ui2").enable({})
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "nim",
-    callback = function()
-        vim.bo.expandtab = true
-        vim.bo.shiftwidth = 4
-        vim.bo.tabstop = 4
-        vim.bo.softtabstop = 0
-    end,
+	pattern = "nim",
+	callback = function()
+		vim.bo.expandtab = true
+		vim.bo.shiftwidth = 4
+		vim.bo.tabstop = 4
+		vim.bo.softtabstop = 0
+	end,
 })
 
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = "rust",
-    callback = function()
-        vim.keymap.set("n", "<leader>r", function()
-            vim.cmd.RustLsp({ "runnables", bang = false })
-        end, { buffer = true, desc = " Rust runnables" })
-        vim.keymap.set("n", "<leader>ck", function()
-            vim.cmd.RustLsp({ "hover", "actions" })
-        end, { buffer = true, desc = " Rust hover actions" })
-        vim.keymap.set("n", "<leader>cx", function()
-            vim.cmd.RustLsp("expandMacro")
-        end, { buffer = true, desc = " Expand macro" })
-    end,
+	pattern = "rust",
+	callback = function()
+		vim.keymap.set("n", "<leader>r", function()
+			vim.cmd.RustLsp({ "runnables", bang = false })
+		end, { buffer = true, desc = " Rust runnables" })
+		vim.keymap.set("n", "<leader>ck", function()
+			vim.cmd.RustLsp({ "hover", "actions" })
+		end, { buffer = true, desc = " Rust hover actions" })
+		vim.keymap.set("n", "<leader>cx", function()
+			vim.cmd.RustLsp("expandMacro")
+		end, { buffer = true, desc = " Expand macro" })
+	end,
 })
 
 vim.keymap.set("n", "<leader>fp", function()
-    Snacks.picker.projects()
+	Snacks.picker.projects()
 end, { desc = " Projects" })
 
 vim.lsp.config("harper_ls", {
-    filetypes = { "markdown", "text" },
+	filetypes = { "markdown", "text" },
 })
 
 vim.g.lazyvim_python_lsp = "pyright"
 
 vim.keymap.set("n", "<leader>h", function()
-    Snacks.dashboard.open()
+	Snacks.dashboard.open()
 end, { desc = "Dashboard" })
 vim.keymap.set("n", "<leader>t", function()
-    vim.cmd("Themery")
+	vim.cmd("Themery")
 end, { desc = " Themes" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-    callback = function()
-        vim.highlight.on_yank({ timeout = 500, higroup = "IncSearch" })
-    end,
+	callback = function()
+		vim.highlight.on_yank({ timeout = 500, higroup = "IncSearch" })
+	end,
 })
 
 vim.keymap.set("n", "<leader>e", function()
-    vim.cmd("Oil")
+	vim.cmd("Oil")
 end, { desc = "File exp" })
 
 vim.keymap.set("n", "<leader>E", function()
-    vim.cmd("Neotree")
+	vim.cmd("Neotree")
 end, { desc = "File exp" })
 
 vim.keymap.set("n", "<leader>cG", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
+
+vim.keymap.set("n", "<leader>uU", function()
+	-- Enable transparency - set backgrounds to none
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
+	vim.api.nvim_set_hl(0, "WhichKeyBorder", { bg = "none" })
+	vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "none" })
+	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+	vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })
+	vim.g.transparent_enabled = true
+	vim.notify("Transparency enabled", vim.log.levels.INFO)
+end, { desc = "Enable theme transparency" })
