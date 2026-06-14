@@ -1,6 +1,6 @@
 return {
 	"Mythos-404/xmake.nvim",
-	config = function()
-		require("xmake").setup({})
-	end,
+	lazy = true,
+	event = "BufReadPost",
+	config = true,
 }

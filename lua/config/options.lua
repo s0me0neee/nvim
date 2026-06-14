@@ -12,6 +12,7 @@ vim.opt.swapfile = false
 vim.opt.cursorline = false
 vim.g.bigfile_disable = false
 vim.opt.background = "dark"
+vim.g.copilot_filetypes = { markdown = true }
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "nim",
@@ -48,8 +49,12 @@ vim.lsp.config("harper_ls", {
 
 vim.g.lazyvim_python_lsp = "pyright"
 
-vim.keymap.set("n", "<leader>h", function() Snacks.dashboard.open() end)
-vim.keymap.set("n", "<leader>t", function() vim.cmd("Themery") end)
+vim.keymap.set("n", "<leader>h", function()
+	Snacks.dashboard.open()
+end)
+vim.keymap.set("n", "<leader>t", function()
+	vim.cmd("Themery")
+end)
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
