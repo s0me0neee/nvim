@@ -13,6 +13,26 @@ vim.opt.cursorline = false
 vim.g.bigfile_disable = false
 vim.opt.background = "dark"
 
+vim.g.rustaceanvim = {
+	server = {
+		default_settings = {
+			["rust-analyzer"] = {
+				check = {
+					command = "clippy",
+					extraArgs = {
+						"--no-deps",
+						"--",
+						"-W",
+						"clippy::all",
+						"-W",
+						"clippy::pedantic",
+					},
+				},
+			},
+		},
+	},
+}
+
 --require("vim._core.ui2").enable({})
 
 vim.api.nvim_create_autocmd("FileType", {
@@ -62,10 +82,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 500, higroup = "IncSearch" })
 	end,
 })
-
-vim.keymap.set("n", "<leader>e", function()
-	vim.cmd("Oil")
-end, { desc = "File exp" })
 
 vim.keymap.set("n", "<leader>E", function()
 	vim.cmd("Neotree")

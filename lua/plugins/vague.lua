@@ -1,12 +1,8 @@
 return {
 
-	{
-		"vague-theme/vague.nvim",
-		lazy = true,
-		config = function()
-			require("vague").setup({
-				transparent = false, -- don't set background
-			})
-		end,
+	"vague-theme/vague.nvim",
+	lazy = true,
+	opts = {
+		transparent = false, -- don't set background
 	},
 }

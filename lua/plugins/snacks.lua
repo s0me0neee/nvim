@@ -68,7 +68,6 @@ return {
         ---@type snacks.dashboard.Item[]
         keys = {
           { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-          { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
 				},
