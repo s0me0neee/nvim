@@ -42,6 +42,7 @@ if not vim.g.vscode then
 		livePreview = true,
 	})
 end
+
 -- vim.api.nvim_set_hl(0, "normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })

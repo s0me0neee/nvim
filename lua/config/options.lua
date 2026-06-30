@@ -13,25 +13,15 @@ vim.opt.cursorline = false
 vim.g.bigfile_disable = false
 vim.opt.background = "dark"
 
-vim.g.rustaceanvim = {
-	server = {
-		default_settings = {
-			["rust-analyzer"] = {
-				check = {
-					command = "clippy",
-					extraArgs = {
-						"--no-deps",
-						"--",
-						"-W",
-						"clippy::all",
-						"-W",
-						"clippy::pedantic",
-					},
-				},
-			},
+vim.lsp.config("ty", {
+	settings = {
+		ty = {
+			-- ty language server settings go here
 		},
 	},
-}
+})
+
+vim.lsp.enable("ty")
 
 --require("vim._core.ui2").enable({})
 
