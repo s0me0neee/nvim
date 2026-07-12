@@ -1,5 +1,5 @@
 return {
-	"thesimonho/kanagawa-paper.nvim",
+	"marekh19/meowsoot.nvim",
 	lazy = true,
 	opts = {
 		transparent = true,

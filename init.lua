@@ -38,11 +38,11 @@ if not vim.g.vscode then
 			"rose-pine-moon",
 			"sakura",
 			"monokai-pro",
+			"meowsoot",
 		},
 		livePreview = true,
 	})
 end
-
 -- vim.api.nvim_set_hl(0, "normal", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
 -- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
