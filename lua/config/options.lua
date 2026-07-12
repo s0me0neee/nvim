@@ -13,15 +13,7 @@ vim.opt.cursorline = false
 vim.g.bigfile_disable = false
 vim.opt.background = "dark"
 
-vim.lsp.config("ty", {
-	settings = {
-		ty = {
-			-- ty language server settings go here
-		},
-	},
-})
-
-vim.lsp.enable("ty")
+vim.g.lazyvim_python_lsp = "ty"
 
 --require("vim._core.ui2").enable({})
 
@@ -56,9 +48,9 @@ end, { desc = " Projects" })
 
 vim.lsp.config("harper_ls", {
 	filetypes = { "markdown", "text" },
+	-- harper errors on every configuration request without a settings object
+	settings = { ["harper-ls"] = {} },
 })
-
-vim.g.lazyvim_python_lsp = "pyright"
 
 vim.keymap.set("n", "<leader>h", function()
 	Snacks.dashboard.open()
