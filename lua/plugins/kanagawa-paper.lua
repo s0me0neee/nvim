@@ -2,6 +2,6 @@ return {
 	"thesimonho/kanagawa-paper.nvim",
 	lazy = true,
 	opts = {
-		transparent = true,
+		transparent = false,
 	},
 }
