@@ -1,111 +1,111 @@
 require("lualine").setup({
-	options = {
-		theme = "auto",
-		component_separators = "",
-		section_separators = { left = "", right = "" },
-		disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
-	},
+    options = {
+        theme = "auto",
+        component_separators = "",
+        section_separators = { left = "", right = "" },
+        disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
+    },
 
-	sections = {
-		-- lualine_a = { "mode" },
-		lualine_a = {
-			{
-				"mode",
-				fmt = function(str)
-					local map = {
-						["NORMAL"] = "通常",
-						["INSERT"] = "挿入",
-						["VISUAL"] = "視覚",
-						["V-LINE"] = "行視覚",
-						["V-BLOCK"] = "矩形視覚",
-						["REPLACE"] = "置換",
-						["COMMAND"] = "命令",
-						["TERMINAL"] = "端末",
-					}
-					return map[str] or str
-				end,
-			},
-		},
+    sections = {
+        -- lualine_a = { "mode" },
+        lualine_a = {
+            {
+                "mode",
+                fmt = function(str)
+                    local map = {
+                        ["NORMAL"] = "通常",
+                        ["INSERT"] = "挿入",
+                        ["VISUAL"] = "視覚",
+                        ["V-LINE"] = "行視覚",
+                        ["V-BLOCK"] = "矩形視覚",
+                        ["REPLACE"] = "置換",
+                        ["COMMAND"] = "命令",
+                        ["TERMINAL"] = "端末",
+                    }
+                    return map[str] or str
+                end,
+            },
+        },
 
-		lualine_b = {
-			"branch",
-			{
-				"diagnostics",
-				sources = { "nvim_diagnostic" },
-				sections = { "error", "warn" },
-			},
-			{ "filename", path = 1, file_status = false },
-			{
-				function()
-					return vim.bo.modified and "M" or (vim.bo.modifiable == false or vim.bo.readonly) and "R" or ""
-				end,
-				padding = { left = 0, right = 1 },
-			},
-			{
-				"%w",
-				cond = function()
-					return vim.wo.previewwindow
-				end,
-			},
-			{
-				"%r",
-				cond = function()
-					return vim.bo.readonly
-				end,
-			},
-			{
-				"%q",
-				cond = function()
-					return vim.bo.buftype == "quickfix"
-				end,
-			},
-		},
+        lualine_b = {
+            "branch",
+            {
+                "diagnostics",
+                sources = { "nvim_diagnostic" },
+                sections = { "error", "warn" },
+            },
+            { "filename", path = 1, file_status = false },
+            {
+                function()
+                    return vim.bo.modified and "M" or (vim.bo.modifiable == false or vim.bo.readonly) and "R" or ""
+                end,
+                padding = { left = 0, right = 1 },
+            },
+            {
+                "%w",
+                cond = function()
+                    return vim.wo.previewwindow
+                end,
+            },
+            {
+                "%r",
+                cond = function()
+                    return vim.bo.readonly
+                end,
+            },
+            {
+                "%q",
+                cond = function()
+                    return vim.bo.buftype == "quickfix"
+                end,
+            },
+        },
 
-		lualine_c = {},
+        lualine_c = {},
 
-		lualine_x = {},
+        lualine_x = {},
 
-		lualine_y = {
-			-- Search result: /pattern (current/total)
-			{
-				function()
-					if vim.v.hlsearch == 0 then
-						return ""
-					end
-					local last_search = vim.fn.getreg("/")
-					if not last_search or last_search == "" then
-						return ""
-					end
-					local searchcount = vim.fn.searchcount({ recompute = 1, maxcount = 9999 })
-					if searchcount.total == 0 then
-						return last_search
-					end
-					return last_search .. " (" .. searchcount.current .. "/" .. searchcount.total .. ")"
-				end,
-				-- color = { fg = "#ff9e64" }, -- auto theme will override this to match your scheme
-			},
-			{
-				"macro",
-				fmt = function()
-					local reg = vim.fn.reg_recording()
-					if reg ~= "" then
-						return "Recording @" .. reg
-					end
-					return nil
-				end,
-				draw_empty = false,
-			},
-			"filetype",
-		},
+        lualine_y = {
+            -- Search result: /pattern (current/total)
+            {
+                function()
+                    if vim.v.hlsearch == 0 then
+                        return ""
+                    end
+                    local last_search = vim.fn.getreg("/")
+                    if not last_search or last_search == "" then
+                        return ""
+                    end
+                    local searchcount = vim.fn.searchcount({ recompute = 1, maxcount = 9999 })
+                    if searchcount.total == 0 then
+                        return last_search
+                    end
+                    return last_search .. " (" .. searchcount.current .. "/" .. searchcount.total .. ")"
+                end,
+                -- color = { fg = "#ff9e64" }, -- auto theme will override this to match your scheme
+            },
+            {
+                "macro",
+                fmt = function()
+                    local reg = vim.fn.reg_recording()
+                    if reg ~= "" then
+                        return "Recording @" .. reg
+                    end
+                    return nil
+                end,
+                draw_empty = false,
+            },
+            "filetype",
+        },
 
-		lualine_z = {
-			"%l:%c",
-			"%p%%/%L",
-		},
-	},
+        lualine_z = {
+            "%l:%c",
+            "%p%%/%L",
+        },
+    },
 
-	inactive_sections = {
-		lualine_c = { "%f %y %m" },
-		lualine_x = {},
-	},
+    inactive_sections = {
+        lualine_c = { "%f %y %m" },
+        lualine_x = {},
+    },
 })
