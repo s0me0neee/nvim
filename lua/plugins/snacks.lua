@@ -1,40 +1,40 @@
 return {
-	{
-		"snacks.nvim",
-		lazy = false,
-		opts = {
-			animate = {
-				enabled = false,
-			},
-			bigfile = {
-				enabled = false,
-				line_length = 4000,
-			},
-			dim = {
-				enabled = false,
-			},
-			zen = {
-				enabled = false,
-			},
-			scroll = {
-				enabled = false,
-			},
-			scope = {
-				enabled = false,
-			},
-			dashboard = {
-				sections = {
-					{ section = "header" },
-					{ section = "keys", gap = 1, padding = 0 },
-					{ section = "startup" },
-				},
-				pane_gap = -4, -- empty columns between vertical panes
-				preset = {
-					pick = function(cmd, opts)
-						return LazyVim.pick(cmd, opts)()
-					end,
-					header = [[
-       ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣀⣀⣤⣤⣤⣤⣄⣀⣀⠀⠀⠀					
+    {
+        "snacks.nvim",
+        lazy = false,
+        opts = {
+            animate = {
+                enabled = false,
+            },
+            bigfile = {
+                enabled = false,
+                line_length = 4000,
+            },
+            dim = {
+                enabled = false,
+            },
+            zen = {
+                enabled = false,
+            },
+            scroll = {
+                enabled = false,
+            },
+            scope = {
+                enabled = false,
+            },
+            dashboard = {
+                sections = {
+                    { section = "header" },
+                    { section = "keys",   gap = 1, padding = 0 },
+                    { section = "startup" },
+                },
+                pane_gap = -4, -- empty columns between vertical panes
+                preset = {
+                    pick = function(cmd, opts)
+                        return LazyVim.pick(cmd, opts)()
+                    end,
+                    header = [[
+       ⠀⠀⠀⠀⠀⠀⠀⠀⠀ ⣀⣀⣤⣤⣤⣤⣄⣀⣀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣤⠶⣻⠝⠋⠠⠔⠛⠁⡀⠀⠈⢉⡙⠓⠶⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⢋⣴⡮⠓⠋⠀⠀⢄⠀⠀⠉⠢⣄⠀⠈⠁⠀⡀⠙⢶⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⠞⢁⣔⠟⠁⠀⠀⠀⠀⠀⠈⡆⠀⠀⠀⠈⢦⡀⠀⠀⠘⢯⢢⠙⢦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -64,14 +64,14 @@ return {
 ⠀⣿⣛⣻⣿⡿⠿⠟⠗⠶⠶⠶⠶⠤⠤⢤⠤⡤⢤⣤⣤⣤⣤⣄⣀⣀⣀⣀⣀⣀⣀⣀⣣⢹⣷⣶⣿⣿⣦⣴⣟⣛⣯⣤⣿⣿⣿⣿⣿⣷⣌⣿⣿⣿⣿⣿⣿⣿⣤⣤⣤⣤⣤⣤
 ⠀⠉⠙⠛⠛⠛⠛⠛⠻⠿⠿⠿⠷⠶⠶⢶⣶⣶⣶⣶⣤⣤⣤⣤⣤⣥⣬⣭⣭⣉⣩⣍⣙⣏⣉⣏⣽⣶⣶⣶⣤⣤⣬⣤⣤⣾⣿⠶⠾⠿⠿⠿⠿⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛⠛
 ]],
-        -- stylua: ignore
-        ---@type snacks.dashboard.Item[]
-        keys = {
-          { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+                    -- stylua: ignore
+                    ---@type snacks.dashboard.Item[]
+                    keys = {
+                        { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+                        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+                    },
+                },
+            },
         },
-				},
-			},
-		},
-	},
+    },
 }

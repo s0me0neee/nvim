@@ -47,7 +47,7 @@ vim.keymap.set("n", "<leader>fp", function()
 end, { desc = " Projects" })
 
 vim.lsp.config("harper_ls", {
-	filetypes = { "markdown", "text" },
+	filetypes = { "markdown" },
 	-- harper errors on every configuration request without a settings object
 	settings = { ["harper-ls"] = {} },
 })

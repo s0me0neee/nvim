@@ -19,6 +19,8 @@ if vim.g.neovide then
 	vim.g.neovide_macos_simple_fullscreen = false
 end
 
+-- require("keymap_dump")
+
 if not vim.g.vscode then
 	require("config.lualine")
 	require("themery").setup({
