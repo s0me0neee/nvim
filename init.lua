@@ -56,6 +56,8 @@ if not vim.g.vscode then
 			"monokai-pro-octagon",
 			-- "monokai-pro-ristretto",
 			"monokai-pro-spectrum",
+			-- neopywal (bare follows &background; the light variant is omitted)
+			"neopywal-dark",
 			-- onedark ships one colorscheme; its styles come from setup() (light omitted)
 			{ name = "onedark", colorscheme = "onedark", before = [[require("onedark").setup({ style = "dark" })]] },
 			-- {
