@@ -22,25 +22,78 @@ end
 -- require("keymap_dump")
 
 if not vim.g.vscode then
+	require("config.run")
 	require("config.lualine")
 	require("themery").setup({
 		themes = {
+			-- custom: derived from Pictures/wallpaper/78036181_p0.jpg
+			"ashfeather",
+			-- ayu (bare "ayu" follows &background; ayu-light omitted)
 			"ayu-dark",
-			"tokyonight",
-			"tokyonight-storm",
-			"tokyodark",
+			"ayu-mirage",
+			-- catppuccin (bare duplicates the configured flavour; latte omitted)
 			"catppuccin-mocha",
-			"vague",
-			"lackluster-hack",
-			"lackluster-night",
-			"kanagawa",
+			-- "catppuccin-macchiato",
+			-- "catppuccin-frappe",
+			-- kanagawa (bare duplicates wave; lotus light variant omitted)
+			"kanagawa-wave",
+			"kanagawa-dragon",
+			-- kanagawa-paper (bare is _theme="auto"; the canvas light variant is omitted)
 			"kanagawa-paper-ink",
-			"onedark",
-			"rose-pine",
-			"rose-pine-moon",
-			"sakura",
-			"monokai-pro",
+			-- lackluster (bare is its own theme, not an alias)
+			"lackluster",
+			"lackluster-dark",
+			"lackluster-hack",
+			"lackluster-mint",
+			"lackluster-night",
+			-- meowsoot (bare = the "night" variant; dawn omitted)
 			"meowsoot",
+			"meowsoot-moon",
+			-- monokai-pro (bare = the "pro" filter, distinct from those below)
+			"monokai-pro",
+			-- "monokai-pro-classic",
+			-- "monokai-pro-machine",
+			"monokai-pro-octagon",
+			-- "monokai-pro-ristretto",
+			"monokai-pro-spectrum",
+			-- onedark ships one colorscheme; its styles come from setup() (light omitted)
+			{ name = "onedark", colorscheme = "onedark", before = [[require("onedark").setup({ style = "dark" })]] },
+			-- {
+			-- 	name = "onedark darker",
+			-- 	colorscheme = "onedark",
+			-- 	before = [[require("onedark").setup({ style = "darker" })]],
+			-- },
+			-- {
+			-- 	name = "onedark cool",
+			-- 	colorscheme = "onedark",
+			-- 	before = [[require("onedark").setup({ style = "cool" })]],
+			-- },
+			-- {
+			-- 	name = "onedark deep",
+			-- 	colorscheme = "onedark",
+			-- 	before = [[require("onedark").setup({ style = "deep" })]],
+			-- },
+			{
+				name = "onedark warm",
+				colorscheme = "onedark",
+				before = [[require("onedark").setup({ style = "warm" })]],
+			},
+			-- {
+			-- 	name = "onedark warmer",
+			-- 	colorscheme = "onedark",
+			-- 	before = [[require("onedark").setup({ style = "warmer" })]],
+			-- },
+			-- rose-pine (bare is sticky: it keeps the last-used variant; dawn omitted)
+			"rose-pine-main",
+			"rose-pine-moon",
+			-- tokyonight (bare duplicates the configured style; day omitted)
+			"tokyonight-night",
+			"tokyonight-storm",
+			-- "tokyonight-moon",
+			-- single-variant themes
+			"tokyodark",
+			"sakura",
+			"vague",
 		},
 		livePreview = true,
 	})

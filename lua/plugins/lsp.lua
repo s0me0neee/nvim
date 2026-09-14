@@ -37,7 +37,6 @@ return {
 								setType = true,
 								paramType = true,
 								paramName = "All",
-								arrayIndex = "Enable",
 								await = true,
 								awaitPropagate = true,
 							},
