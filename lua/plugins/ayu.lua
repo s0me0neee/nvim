@@ -1,7 +1,7 @@
 return {
-    "Shatur/neovim-ayu",
-    lazy = true,
-    opts = {
-        transparent = true,
-    },
+	"Shatur/neovim-ayu",
+	lazy = true,
+	opts = {
+		transparent = false,
+	},
 }

@@ -1,5 +1,7 @@
 -- Auto-loaded by LazyVim (lazyvim.config.init).
 
+require("config.term-jump").setup()
+
 -- Force-kill every LSP client on exit. Neovim's graceful shutdown gives servers
 -- only a short window; a busy rust-analyzer (mid-index) misses it and the
 -- process orphans (survives `:q`).

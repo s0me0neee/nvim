@@ -1,27 +1,33 @@
 return {
 	"milanglacier/minuet-ai.nvim",
 	dependencies = { "nvim-lua/plenary.nvim" },
-	enabled = false,
+	enabled = true,
 	opts = {
-		context_window = 1024,
-		context_ratio = 0.75,
+		context_window = 2048,
+		context_ratio = 0.7,
 		-- DeepSeek FIM has no `n`, so each completion is a separate request that
 		-- redraws the suggestion when it lands. There's no prev/next key to cycle
 		-- them anyway.
 		n_completions = 1,
 		-- The default 1000ms throttle skips the request after you stop typing if
 		-- one was sent less than a second earlier, leaving an old suggestion.
-		throttle = 100,
-		debounce = 100,
+		throttle = 50,
+		debounce = 25,
 		add_single_line_entry = true,
 		provider = "openai_fim_compatible",
 		provider_options = {
 			openai_fim_compatible = {
 				api_key = "DEEPSEEK_API_KEY",
 				name = "deepseek",
+				-- FIM Completion (Beta): /beta/completions takes prompt+suffix,
+				-- unlike the chat endpoint. Pinned so a plugin default change
+				-- can't silently move it.
+				end_point = "https://api.deepseek.com/beta/completions",
+				model = "deepseek-flash",
+				stream = false,
 				optional = {
-					max_tokens = 256,
-					top_p = 0.8,
+					max_tokens = 512,
+					top_p = 0.7,
 				},
 			},
 		},

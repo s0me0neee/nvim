@@ -18,6 +18,7 @@ return {
 	"RedsXDD/neopywal.nvim",
 	name = "neopywal",
 	lazy = false,
+	enabled = false,
 	priority = 1000,
 	config = function()
 		local hsluv = require("neopywal.utils.hsluv")
