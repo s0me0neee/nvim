@@ -5,17 +5,24 @@ return {
 	opts = {
 		context_window = 2048,
 		context_ratio = 0.7,
-		-- DeepSeek FIM has no `n`, so each completion is a separate request that
-		-- redraws the suggestion when it lands. There's no prev/next key to cycle
-		-- them anyway.
+		-- Minuet fires one request per completion; there's no prev/next key to
+		-- cycle them anyway.
 		n_completions = 1,
 		-- The default 1000ms throttle skips the request after you stop typing if
 		-- one was sent less than a second earlier, leaving an old suggestion.
-		throttle = 50,
+		throttle = 25,
 		debounce = 25,
 		add_single_line_entry = true,
+		-- Switch between "codestral" and "openai_fim_compatible" (DeepSeek) to compare.
 		provider = "openai_fim_compatible",
 		provider_options = {
+			codestral = {
+				api_key = "MISTRAL_API_KEY",
+				-- Free endpoint; https://api.mistral.ai/v1/fim/completions is ~0.1s faster but billed.
+				end_point = "https://codestral.mistral.ai/v1/fim/completions",
+				model = "codestral-latest",
+				optional = { max_tokens = 64 },
+			},
 			openai_fim_compatible = {
 				api_key = "DEEPSEEK_API_KEY",
 				name = "deepseek",
@@ -26,7 +33,7 @@ return {
 				model = "deepseek-flash",
 				stream = false,
 				optional = {
-					max_tokens = 512,
+					max_tokens = 64,
 					top_p = 0.7,
 				},
 			},
