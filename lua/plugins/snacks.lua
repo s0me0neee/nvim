@@ -7,8 +7,34 @@ return {
                 enabled = false,
             },
             bigfile = {
-                enabled = false,
+                enabled = true,
+                size = 10 * 1024 * 1024,
                 line_length = 4000,
+                setup = function(ctx)
+                    if vim.fn.exists(":NoMatchParen") ~= 0 then
+                        vim.cmd([[NoMatchParen]])
+                    end
+                    -- unlike the snacks default, syntax stays off: regex highlighting
+                    -- is what actually stalls multi-MB files
+                    Snacks.util.wo(0, {
+                        foldmethod = "manual",
+                        statuscolumn = "",
+                        conceallevel = 0,
+                        relativenumber = false,
+                        cursorline = false,
+                        signcolumn = "no",
+                        colorcolumn = "",
+                        wrap = false,
+                        list = false,
+                        spell = false,
+                    })
+                    vim.bo[ctx.buf].undofile = false
+                    vim.bo[ctx.buf].swapfile = false
+                    vim.b[ctx.buf].completion = false
+                    vim.b[ctx.buf].snacks_indent = false
+                    vim.b[ctx.buf].minianimate_disable = true
+                    vim.b[ctx.buf].minihipatterns_disable = true
+                end,
             },
             dim = {
                 enabled = false,
