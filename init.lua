@@ -33,6 +33,7 @@ if not vim.g.vscode then
 			"ayu-mirage",
 			-- catppuccin (bare duplicates the configured flavour; latte omitted)
 			"catppuccin-mocha",
+			"cendre",
 			-- "catppuccin-macchiato",
 			-- "catppuccin-frappe",
 			-- kanagawa (bare duplicates wave; lotus light variant omitted)
@@ -88,6 +89,7 @@ if not vim.g.vscode then
 			-- rose-pine (bare is sticky: it keeps the last-used variant; dawn omitted)
 			"rose-pine-main",
 			"rose-pine-moon",
+			"sora",
 			-- tokyonight (bare duplicates the configured style; day omitted)
 			"tokyonight-night",
 			"tokyonight-storm",
