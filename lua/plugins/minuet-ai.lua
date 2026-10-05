@@ -226,7 +226,7 @@ return {
 	-- textobjects supplies the queries the prompt hook reads declarations from;
 	-- it is lazy-loaded otherwise, and its queries resolve only once loaded.
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter-textobjects" },
-	enabled = true,
+	enabled = false,
 	opts = {
 		context_window = 2048,
 		context_ratio = 0.7,
@@ -239,10 +239,10 @@ return {
 		debounce = 25,
 		add_single_line_entry = true,
 		-- Switch between "codestral" and "openai_fim_compatible" (DeepSeek) to compare.
-		provider = "openai_fim_compatible",
+		provider = "codestral",
 		provider_options = {
 			codestral = {
-				api_key = "MISTRAL_API_KEY",
+				api_key = "CODESTRAL_API_KEY",
 				-- Free endpoint; https://api.mistral.ai/v1/fim/completions is ~0.1s faster but billed.
 				end_point = "https://codestral.mistral.ai/v1/fim/completions",
 				model = "codestral-latest",

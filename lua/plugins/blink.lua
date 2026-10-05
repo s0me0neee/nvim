@@ -11,6 +11,14 @@ return {
 			["<Down>"] = { "select_next" },
 			["<Up>"] = { "select_prev" },
 			["<CR>"] = { "select_and_accept", "fallback" },
+			["<C-e>"] = {
+				function(cmp)
+					if cmp.is_visible() then
+						return cmp.hide()
+					end
+					return cmp.show()
+				end,
+			},
 		},
 		sources = {
 			default = {
