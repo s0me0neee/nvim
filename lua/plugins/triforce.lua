@@ -1,6 +1,6 @@
 return {
 	{
-		"gisketch/triforce.nvim",
+		"DrKJeff16/triforce.nvim",
 		dependencies = { "nvzone/volt" },
 		keys = {
 			{
