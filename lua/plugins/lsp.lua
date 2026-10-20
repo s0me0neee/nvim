@@ -8,11 +8,40 @@ return {
 						{ "<c-k>", false, mode = "i" },
 					},
 				},
-				vtsls = {
+				eslint = {
+					-- tsc already covers fixes; eslint's actions just duplicate the menu
+					on_init = function(client)
+						client.server_capabilities.codeActionProvider = false
+					end,
+				},
+				tsc = {
+					mason = false, -- use the TS 7 tsc already on PATH
 					settings = {
-						typescript = {
-							inlayHints = {
-								variableTypes = { enabled = true },
+						inlayHints = {
+							parameterNames = {
+								enabled = "all",
+								suppressWhenArgumentMatchesName = true,
+							},
+							parameterTypes = {
+								enabled = true,
+							},
+							variableTypes = {
+								enabled = true,
+							},
+							functionLikeReturnTypes = {
+								enabled = false,
+							},
+							enumMemberValues = {
+								enabled = true,
+							},
+						},
+						codeLens = {
+							referencesCodeLens = {
+								enabled = true,
+								showOnAllFunctions = true,
+							},
+							implementationsCodeLens = {
+								enabled = true,
 							},
 						},
 					},
@@ -28,6 +57,10 @@ return {
 							},
 						},
 					},
+				},
+				kotlin_lsp = {
+					cmd = { "kotlin-lsp", "--stdio" },
+					mason = false, -- brew's JetBrains/utils tap; Mason's registry pin is stale
 				},
 				lua_ls = {
 					settings = {

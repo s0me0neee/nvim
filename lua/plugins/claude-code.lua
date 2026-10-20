@@ -1,4 +1,5 @@
 return {
-    "coder/claudecode.nvim",
-    opts = { terminal = { provider = "none" } },
+	"coder/claudecode.nvim",
+	enabled = false,
+	opts = { terminal = { provider = "none" } },
 }

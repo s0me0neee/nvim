@@ -1,6 +1,5 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 vim.g.mapleader = " "
-vim.g.copilot_enabled = true
 vim.opt.termguicolors = true
 vim.opt.autochdir = true
 vim.opt.smartindent = true
@@ -14,6 +13,7 @@ vim.g.bigfile_disable = false
 vim.opt.background = "dark"
 
 vim.g.lazyvim_python_lsp = "ty"
+vim.g.lazyvim_ts_lsp = "tsc"
 
 --require("vim._core.ui2").enable({})
 
