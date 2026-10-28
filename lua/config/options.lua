@@ -18,7 +18,7 @@ vim.g.lazyvim_ts_lsp = "tsc"
 --require("vim._core.ui2").enable({})
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "nim",
+	pattern = { "nim", "mermaid" },
 	callback = function()
 		vim.bo.expandtab = true
 		vim.bo.shiftwidth = 4
@@ -70,6 +70,60 @@ vim.keymap.set("n", "<leader>E", function()
 end, { desc = "File exp" })
 
 vim.keymap.set("n", "<leader>cG", "<cmd>ClaudeCode<CR>", { desc = "Toggle Claude Code" })
+
+vim.keymap.set("n", "<leader>R", function()
+	local word = vim.fn.expand("<cword>")
+	if word == "" then
+		return
+	end
+	local win = vim.api.nvim_get_current_win()
+	local buf = vim.api.nvim_get_current_buf()
+	local pat = [[\V\<]] .. vim.fn.escape(word, [[\/]]) .. [[\>]]
+	local hits = vim.fn.matchbufline(buf, pat, 1, "$")
+	local match = vim.fn.matchadd("Search", pat)
+	local ns = vim.api.nvim_create_namespace("substitute_preview")
+	local conceallevel = vim.wo[win].conceallevel
+	-- bare one-line input over the statusline instead of noice's popup or the :s command
+	local input = Snacks.input({
+		prompt = "",
+		icon = "",
+		prompt_pos = "left",
+		expand = false,
+		win = {
+			row = vim.o.lines - 1,
+			col = 0,
+			width = 0,
+			border = "none",
+			keys = { i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true } },
+		},
+	}, function(repl)
+		pcall(vim.fn.matchdelete, match, win)
+		vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+		vim.wo[win].conceallevel = conceallevel
+		if repl then
+			vim.cmd(("keeppatterns %%s/%s/%s/g"):format(pat, vim.fn.escape(repl, [[\/&~]])))
+		end
+	end)
+	-- snacks pads the input with a statuscolumn even without a prompt
+	vim.wo[input.win].statuscolumn = ""
+	-- live preview: conceal each match and draw the typed text inline in its place
+	input:on("TextChangedI", function()
+		local text = input:text()
+		vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
+		vim.wo[win].conceallevel = text == "" and conceallevel or 2
+		if text == "" then
+			return
+		end
+		for _, hit in ipairs(hits) do
+			vim.api.nvim_buf_set_extmark(buf, ns, hit.lnum - 1, hit.byteidx, {
+				end_col = hit.byteidx + #hit.text,
+				conceal = "",
+				virt_text = { { text, "Search" } },
+				virt_text_pos = "inline",
+			})
+		end
+	end, { buf = true })
+end, { desc = "Substitute word under cursor" })
 
 vim.keymap.set("n", "<leader>uU", function()
 	-- Enable transparency - set backgrounds to none
