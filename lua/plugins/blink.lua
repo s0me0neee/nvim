@@ -1,7 +1,6 @@
 return {
 	"saghen/blink.cmp",
 	lazy = false,
-	dependencies = {},
 	opts = {
 		-- Merged after LazyVim's kind icons. Filled letter = type, outline letter = member.
 		appearance = {
@@ -109,30 +108,12 @@ return {
 					treesitter = { "lsp", "snippets", "buffer" },
 					columns = { { "kind_icon" }, { "label", gap = 1 } },
 					components = {
-						kind = {
-							text = function(ctx)
-								local kind_icons = { Claude = "✻" }
-								return kind_icons[ctx.kind] or ctx.kind
-							end,
-						},
 						label = {
 							text = function(ctx)
 								return require("colorful-menu-ext").blink_components_text(ctx)
 							end,
 							highlight = function(ctx)
 								return require("colorful-menu-ext").blink_components_highlight(ctx)
-							end,
-						},
-
-						source_name = {
-							text = function(ctx)
-								local source_map = {
-									lsp = "LSP",
-									buffer = "Buf",
-									path = "Path",
-									snippets = "Snip",
-								}
-								return source_map[ctx.source_name] or ctx.source_name
 							end,
 						},
 					},

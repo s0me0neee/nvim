@@ -32,6 +32,8 @@ end
 if not vim.g.vscode then
 	require("config.run")
 	require("config.lualine")
+	-- before themery.setup so it sees the startup theme's name
+	require("config.transparency")
 	require("themery").setup({
 		themes = {
 			"ashfeather",
@@ -104,13 +106,3 @@ if not vim.g.vscode then
 		livePreview = true,
 	})
 end
--- vim.api.nvim_set_hl(0, "normal", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
--- vim.api.nvim_set_hl(0, "NormalNC", { bg = "none" })
--- -- Make which-key borders transparent
--- vim.api.nvim_set_hl(0, "WhichKeyBorder", { bg = "none" })
--- vim.api.nvim_set_hl(0, "WhichKeyFloat", { bg = "none" })
---
--- -- You might also want to make these transparent for consistency
--- vim.api.nvim_set_hl(0, "normalfloat", { bg = "none" })
--- vim.api.nvim_set_hl(0, "FloatBorder", { bg = "none" })

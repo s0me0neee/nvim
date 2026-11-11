@@ -1,7 +1,6 @@
 return {
 	"folke/noice.nvim",
 	lazy = true,
-	enabled = true,
 	opts = {
 		lsp = {
 			hover = {

@@ -2,6 +2,39 @@
 
 require("config.term-jump").setup()
 
+-- same group name as LazyVim's so this replaces its yank highlight instead of stacking on it
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("lazyvim_highlight_yank", { clear = true }),
+	callback = function()
+		vim.hl.on_yank({ timeout = 500, higroup = "IncSearch" })
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "nim", "mermaid" },
+	callback = function()
+		vim.bo.expandtab = true
+		vim.bo.shiftwidth = 4
+		vim.bo.tabstop = 4
+		vim.bo.softtabstop = 0
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "rust",
+	callback = function()
+		vim.keymap.set("n", "<leader>r", function()
+			vim.cmd.RustLsp({ "runnables", bang = false })
+		end, { buffer = true, desc = " Rust runnables" })
+		vim.keymap.set("n", "<leader>ck", function()
+			vim.cmd.RustLsp({ "hover", "actions" })
+		end, { buffer = true, desc = " Rust hover actions" })
+		vim.keymap.set("n", "<leader>cx", function()
+			vim.cmd.RustLsp("expandMacro")
+		end, { buffer = true, desc = " Expand macro" })
+	end,
+})
+
 -- true when every signature in the strings has an empty "()" right after `label`
 local function takes_no_params(label, texts)
 	local found = false

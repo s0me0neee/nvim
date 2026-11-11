@@ -48,9 +48,6 @@ return {
 			scope = {
 				enabled = false,
 			},
-			words = {
-				-- enabled = false,
-			},
 			dashboard = {
 				sections = {
 					{ section = "header" },
