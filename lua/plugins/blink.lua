@@ -3,6 +3,45 @@ return {
 	lazy = false,
 	dependencies = {},
 	opts = {
+		-- Merged after LazyVim's kind icons. Filled letter = type, outline letter = member.
+		appearance = {
+			kind_icons = {
+				Class = "󰯲 ",
+				Interface = "󰰄 ",
+				Struct = "󰰢 ",
+				Enum = "󰯸 ",
+				TypeParameter = "󰰥 ",
+				Module = "󰰐 ",
+				Namespace = "󰰓 ",
+				Method = "󰰑 ",
+				Function = "󰊕 ",
+				Constructor = "󰯳 ",
+				EnumMember = "󰯹 ",
+				Field = "󰯼 ",
+				Property = "󰰚 ",
+				Variable = "󰰬 ",
+				Constant = "󰏿 ",
+				Keyword = "󰻾 ",
+				Snippet = "󱄽 ",
+				Text = "󰉿 ",
+				File = "󰈔 ",
+				Folder = "󰉋 ",
+				Color = "󰏘 ",
+				Operator = "󰪚 ",
+				Value = "󰎠 ",
+				Event = "󱐋 ",
+				Unit = "󰑭 ",
+				Reference = "󰬲 ",
+				Array = "󰅪 ",
+				Boolean = "󰨙 ",
+				Null = "󰟢 ",
+				Number = "󰎠 ",
+				Object = "󰅩 ",
+				String = "󰉿 ",
+				Key = "󰌋 ",
+				Package = "󰏗 ",
+			},
+		},
 		cmdline = { enabled = false },
 		keymap = {
 			preset = "none",
@@ -27,7 +66,22 @@ return {
 				"snippets",
 				"buffer",
 			},
-			providers = {},
+			providers = {
+				lsp = {
+					transform_items = function(_, items)
+						for _, item in ipairs(items) do
+							if
+								item.client_name == "jdtls"
+								and item.kind == vim.lsp.protocol.CompletionItemKind.Snippet
+							then
+								-- full-expression filterText outscores every method
+								item.filterText = item.label
+							end
+						end
+						return items
+					end,
+				},
+			},
 		},
 		completion = {
 			keyword = { range = "prefix" },
@@ -63,10 +117,10 @@ return {
 						},
 						label = {
 							text = function(ctx)
-								return require("colorful-menu").blink_components_text(ctx)
+								return require("colorful-menu-ext").blink_components_text(ctx)
 							end,
 							highlight = function(ctx)
-								return require("colorful-menu").blink_components_highlight(ctx)
+								return require("colorful-menu-ext").blink_components_highlight(ctx)
 							end,
 						},
 
@@ -85,12 +139,12 @@ return {
 				},
 			},
 			documentation = {
-				auto_show = true,
+				auto_show = false,
 				auto_show_delay_ms = 175,
 				window = {
 					border = "none",
 					max_width = math.floor(vim.o.columns * 0.4),
-					max_height = math.floor(vim.o.lines * 0.5),
+					max_height = math.floor(vim.o.lines * 0.4),
 				},
 			},
 			ghost_text = { enabled = false },

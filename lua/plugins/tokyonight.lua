@@ -3,7 +3,7 @@ return {
 		"folke/tokyonight.nvim",
 		lazy = true,
 		opts = {
-			transparent = false, -- enable transparency
+			transparent = true, -- enable transparency
 			styles = {
 				sidebars = "transparent",
 				floats = "transparent",

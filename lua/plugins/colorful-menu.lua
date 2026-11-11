@@ -37,6 +37,18 @@ return {
 					-- see https://github.com/xzbdmw/colorful-menu.nvim/issues/42
 					extra_info_hl = "@comment",
 				},
+				-- tsc and ty are rendered by lua/colorful-menu-ext, which reads these
+				tsc = {
+					extra_info_hl = "@comment",
+					-- auto-import module on the right edge, like rust-analyzer
+					align_type_to_right = true,
+					-- resolve on-screen functions to show their params
+					resolve_signatures = true,
+				},
+				ty = {
+					extra_info_hl = "@comment",
+					align_type_to_right = true,
+				},
 				["rust-analyzer"] = {
 					-- Such as (as Iterator), (use std::io).
 					extra_info_hl = "@comment",

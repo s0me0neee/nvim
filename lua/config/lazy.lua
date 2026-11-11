@@ -17,7 +17,18 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	spec = {
 		-- add LazyVim and import its plugins
-		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
+		{
+			"LazyVim/LazyVim",
+			import = "lazyvim.plugins",
+			opts = {
+				-- themery applies the saved theme right after, so only fall back when it has none
+				colorscheme = function()
+					if not vim.uv.fs_stat(vim.fn.stdpath("data") .. "/themery/state.json") then
+						vim.cmd.colorscheme("tokyonight")
+					end
+				end,
+			},
+		},
 		-- import/override with your plugins
 		{ import = "plugins" },
 	},

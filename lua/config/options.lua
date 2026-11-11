@@ -1,7 +1,7 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 vim.g.mapleader = " "
 vim.opt.termguicolors = true
-vim.opt.autochdir = true
+vim.opt.autochdir = false
 vim.opt.smartindent = true
 vim.opt.expandtab = false
 vim.opt.tabstop = 4

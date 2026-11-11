@@ -8,15 +8,23 @@ if vim.g.neovide then
 	vim.keymap.set("c", "<D-v>", "<C-R>+") -- Paste command mode
 	vim.keymap.set("i", "<D-v>", "<C-R>+") -- Paste insert mode
 	vim.keymap.set("t", "<D-v>", '<C-\\><C-n>"+Pi', { noremap = true })
-	vim.o.guifont = "FiraCode Nerd Font Mono:h14:w0"
-	vim.opt.linespace = 1
+	vim.o.guifont = "Maple Mono NF:h16.5:w1.5"
+	vim.g.neovide_opacity = 1
+	vim.g.neovide_scale_factor = 1.0
 	vim.g.neovide_normal_opacity = 0.5
 	vim.g.transparency = 0.2
-	vim.g.neovide_window_blurred = true
+	vim.g.neovide_window_blurred = false
+	vim.g.neovide_padding_top = 3
+	vim.o.linespace = 6
+	-- noice draws the cmdline; needs Neovide >= 0.17.2 or the statusline stretches into the bottom gap
+	vim.o.cmdheight = 0
 	vim.g.neovide_show_border = false
 	vim.g.neovide_floating_blur_amount_x = 3
 	vim.g.neovide_floating_blur_amount_y = 3
 	vim.g.neovide_macos_simple_fullscreen = false
+	-- the see-through title bar draws the title over the grid; a blank title hides it
+	vim.o.title = true
+	vim.o.titlestring = " "
 end
 
 -- require("keymap_dump")
@@ -26,11 +34,7 @@ if not vim.g.vscode then
 	require("config.lualine")
 	require("themery").setup({
 		themes = {
-			-- custom: derived from Pictures/wallpaper/78036181_p0.jpg
 			"ashfeather",
-			-- ayu (bare "ayu" follows &background; ayu-light omitted)
-			"ayu-dark",
-			"ayu-mirage",
 			-- catppuccin (bare duplicates the configured flavour; latte omitted)
 			"catppuccin-mocha",
 			"cendre",
@@ -43,12 +47,12 @@ if not vim.g.vscode then
 			"kanagawa-paper-ink",
 			-- lackluster (bare is its own theme, not an alias)
 			"lackluster",
-			"lackluster-dark",
+			-- "lackluster-dark",
 			"lackluster-hack",
-			"lackluster-mint",
-			"lackluster-night",
+			-- "lackluster-mint",
+			-- "lackluster-night",
 			-- meowsoot (bare = the "night" variant; dawn omitted)
-			"meowsoot",
+			-- "meowsoot",
 			"meowsoot-moon",
 			-- monokai-pro (bare = the "pro" filter, distinct from those below)
 			"monokai-pro",
@@ -56,9 +60,7 @@ if not vim.g.vscode then
 			-- "monokai-pro-machine",
 			"monokai-pro-octagon",
 			-- "monokai-pro-ristretto",
-			"monokai-pro-spectrum",
-			-- neopywal (bare follows &background; the light variant is omitted)
-			-- "neopywal-dark",
+			-- "monokai-pro-spectrum",
 			-- onedark ships one colorscheme; its styles come from setup() (light omitted)
 			{ name = "onedark", colorscheme = "onedark", before = [[require("onedark").setup({ style = "dark" })]] },
 			-- {
@@ -87,7 +89,7 @@ if not vim.g.vscode then
 			-- 	before = [[require("onedark").setup({ style = "warmer" })]],
 			-- },
 			-- rose-pine (bare is sticky: it keeps the last-used variant; dawn omitted)
-			"rose-pine-main",
+			-- "rose-pine-main",
 			"rose-pine-moon",
 			"sora",
 			-- tokyonight (bare duplicates the configured style; day omitted)
