@@ -1,6 +1,5 @@
-require("lualine").setup({
+local opts = {
     options = {
-        theme = "auto",
         component_separators = "",
         section_separators = { left = "", right = "" },
         disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
@@ -84,17 +83,10 @@ require("lualine").setup({
                 end,
                 -- color = { fg = "#ff9e64" }, -- auto theme will override this to match your scheme
             },
-            {
-                "macro",
-                fmt = function()
-                    local reg = vim.fn.reg_recording()
-                    if reg ~= "" then
-                        return "Recording @" .. reg
-                    end
-                    return nil
-                end,
-                draw_empty = false,
-            },
+            function()
+                local reg = vim.fn.reg_recording()
+                return reg ~= "" and "Recording @" .. reg or ""
+            end,
             "filetype",
         },
 
@@ -108,4 +100,43 @@ require("lualine").setup({
         lualine_c = { "%f %y %m" },
         lualine_x = {},
     },
+}
+
+-- lualine's auto theme with the a/z and b/y blocks recolored from each mode's color
+local function theme()
+    local t = require("lualine.utils.loader").load_theme("auto")
+    for mode, sections in pairs(t) do
+        local bg = mode ~= "inactive" and sections.a and sections.a.bg
+        if type(bg) == "string" and bg:match("^#%x%x%x%x%x%x$") then
+            local colors = require("word-gradient").statusline_colors(bg)
+            sections.a = vim.tbl_extend("force", sections.a, colors.a)
+            sections.b = vim.tbl_extend("force", sections.b or {}, colors.b)
+        end
+    end
+    return t
+end
+
+local lualine = require("lualine")
+opts.options.theme = theme()
+lualine.setup(opts)
+
+-- a table theme is fixed at setup, so rebuild it for each colorscheme
+vim.api.nvim_create_autocmd("ColorScheme", {
+    group = vim.api.nvim_create_augroup("lualine_theme", { clear = true }),
+    callback = function()
+        -- deferred: word-gradient's own ColorScheme hook must first update the hue grey modes fall back to
+        vim.schedule(function()
+            opts.options.theme = theme()
+            lualine.setup(opts)
+        end)
+    end,
+})
+
+-- lualine's refresh events skip macro recording, so the indicator waited for a cursor move or its 1s timer
+vim.api.nvim_create_autocmd({ "RecordingEnter", "RecordingLeave" }, {
+    group = vim.api.nvim_create_augroup("lualine_macro", { clear = true }),
+    callback = function()
+        -- queued, so it renders after RecordingLeave returns and reg_recording() is cleared
+        require("lualine").refresh({ place = { "statusline" } })
+    end,
 })

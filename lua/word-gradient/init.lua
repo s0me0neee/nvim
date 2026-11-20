@@ -821,6 +821,47 @@ local function on_line(_, _, buf, row)
 	end
 end
 
+-- Statusline palette ------------------------------------------------------------
+
+local STL_INNER_TURN = 40 -- degrees of hue between the mode block and its inner neighbor
+local STL_CHROMA = 0.9 -- share of the gamut's chroma, so blocks stay vivid
+-- OKLCH hues (orange through olive) that turn brown when deep; the inner block turns away from them
+local STL_MUDDY_FROM, STL_MUDDY_TO = 45, 135
+
+-- Lightness follows the hue's most saturated point: outer tones a bit lighter, inner ones deep.
+local function stl_tone(outer, h)
+	local cusp = cusp_lightness(h)
+	local l = outer and math.max(cusp, cusp + (0.86 - cusp) * 0.4) or clamp(cusp * 0.7, 0.36, 0.5)
+	return gamut_map({ l = l, c = max_chroma(l, h) * STL_CHROMA, h = h })
+end
+
+-- Near-white or near-black in the block's own hue, whichever reads better.
+local function stl_text(bg, h)
+	local light = gamut_map({ l = 0.97, c = 0.02, h = h })
+	local dark = gamut_map({ l = 0.2, c = 0.03, h = h })
+	return contrast(light, bg) >= contrast(dark, bg) and light or dark
+end
+
+local function muddy(h)
+	h = h % 360
+	return h >= STL_MUDDY_FROM and h <= STL_MUDDY_TO
+end
+
+-- Lualine block colors for a mode color "#rrggbb": a vivid outer block (a/z) and a deep inner one (b/y).
+function M.statusline_colors(mode_bg)
+	local c = rgb_to_oklch(int_to_rgb(tonumber(mode_bg:sub(2), 16)))
+	local h0 = c.c >= NEUTRAL_CHROMA and c.h or theme.anchor or DEFAULT_ANCHOR_HUE
+	local h1 = h0 + STL_INNER_TURN
+	if muddy(h1) and not muddy(h0 - STL_INNER_TURN) then
+		h1 = h0 - STL_INNER_TURN
+	end
+	local outer, inner = stl_tone(true, h0), stl_tone(false, h1)
+	return {
+		a = { bg = to_hex(outer), fg = to_hex(stl_text(outer, h0)) },
+		b = { bg = to_hex(inner), fg = to_hex(stl_text(inner, h1)) },
+	}
+end
+
 function M.enable(state)
 	enabled = state
 	vim.cmd("redraw!")

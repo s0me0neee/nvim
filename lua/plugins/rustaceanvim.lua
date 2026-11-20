@@ -1,5 +1,5 @@
 local function project_root(fname)
-	return vim.fs.root(fname, { "Cargo.toml", "rust-project.json", "Cargo.lock" })
+	return vim.fs.root(fname, { "Cargo.toml", "rust-project.json" })
 end
 
 -- returns true if the list changed
