@@ -113,6 +113,8 @@ return {
 					preselect = true,
 					auto_insert = false,
 				},
+				-- stop at the ends instead of wrapping around
+				cycle = { from_bottom = false, from_top = false },
 			},
 			menu = {
 				border = "none",
@@ -133,12 +135,24 @@ return {
 				},
 			},
 			documentation = {
-				auto_show = false,
-				auto_show_delay_ms = 175,
+				auto_show = true,
+				auto_show_delay_ms = 750,
+				draw = function(opts)
+					local item = opts.item
+					if item.client_name == "ty" and type(item.detail) == "string" then
+						local width = opts.window.config.max_width
+						local lines = require("colorful-menu-ext.ty").format_detail(item.label, item.detail, width)
+						if lines then
+							-- one string: a list gets deduplicated, which would drop repeated stub lines
+							return opts.default_implementation({ detail = table.concat(lines, "\n") })
+						end
+					end
+					opts.default_implementation()
+				end,
 				window = {
 					border = "none",
 					max_width = math.floor(vim.o.columns * 0.4),
-					max_height = math.floor(vim.o.lines * 0.4),
+					max_height = math.floor(vim.o.lines * 0.3),
 				},
 			},
 			ghost_text = { enabled = false },

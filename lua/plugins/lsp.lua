@@ -41,33 +41,25 @@ return {
 						end
 						on_dir(project_root or vim.fn.getcwd())
 					end,
+					-- tsc 7 only reads the js/ts, typescript, javascript and editor sections
 					settings = {
-						inlayHints = {
-							parameterNames = {
-								enabled = "all",
-								suppressWhenArgumentMatchesName = true,
+						["js/ts"] = {
+							inlayHints = {
+								parameterNames = {
+									enabled = "all",
+									suppressWhenArgumentMatchesName = true,
+								},
+								parameterTypes = { enabled = true },
+								variableTypes = { enabled = true },
+								functionLikeReturnTypes = { enabled = false },
+								enumMemberValues = { enabled = true },
 							},
-							parameterTypes = {
-								enabled = true,
-							},
-							variableTypes = {
-								enabled = true,
-							},
-							functionLikeReturnTypes = {
-								enabled = false,
-							},
-							enumMemberValues = {
-								enabled = true,
-							},
-						},
-						codeLens = {
 							referencesCodeLens = {
 								enabled = true,
 								showOnAllFunctions = true,
 							},
-							implementationsCodeLens = {
-								enabled = true,
-							},
+							implementationsCodeLens = { enabled = true },
+							preferences = { preferTypeOnlyAutoImports = true },
 						},
 					},
 				},
@@ -79,6 +71,9 @@ return {
 							inlayHints = {
 								variableTypes = true,
 								callArgumentNames = true,
+							},
+							completions = {
+								completeFunctionParentheses = true,
 							},
 						},
 					},

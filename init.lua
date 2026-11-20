@@ -32,10 +32,8 @@ end
 if not vim.g.vscode then
 	require("config.run")
 	require("config.lualine")
-	-- before config.transparency, so its ColorScheme hook reads Normal's bg before transparency clears it
+	-- before transparent.nvim loads (VeryLazy), so its ColorScheme hook reads Normal's bg before it's cleared
 	require("word-gradient").setup()
-	-- before themery.setup so it sees the startup theme's name
-	require("config.transparency")
 	require("themery").setup({
 		themes = {
 			"ashfeather",

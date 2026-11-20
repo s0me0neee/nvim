@@ -37,6 +37,39 @@ local function signature(desc)
 	return nil, overloads
 end
 
+-- ty's detail is one line ("Overload[sig, sig, ...]"); lay it out as python stubs for the docs window
+function M.format_detail(label, detail, width)
+	local inner = detail:match("^Overload%[(.*)%]$")
+	local sigs = inner and split_top_level(inner) or { detail }
+	local lines = {}
+	for _, sig in ipairs(sigs) do
+		sig = sig:gsub("^def [^%[(]+", ""):gsub("^bound method [^%[(]+", "")
+		local tparams = sig:match("^%b[]") or ""
+		local params = sig:sub(#tparams + 1):match("^%b()")
+		if not params then
+			return nil
+		end
+		local ret = sig:sub(#tparams + #params + 1)
+		if #sigs > 1 then
+			table.insert(lines, "@overload")
+		end
+		local head = "def " .. label .. tparams
+		local one_line = head .. params .. ret .. ": ..."
+		if #one_line <= width then
+			table.insert(lines, one_line)
+		else
+			table.insert(lines, head .. "(")
+			for _, p in ipairs(split_top_level(params:sub(2, -2))) do
+				if p ~= "" then
+					table.insert(lines, "    " .. p .. ",")
+				end
+			end
+			table.insert(lines, ")" .. ret .. ": ...")
+		end
+	end
+	return lines
+end
+
 ---@return CMHighlights
 function M.render(item, ls, o)
 	local label = item.label

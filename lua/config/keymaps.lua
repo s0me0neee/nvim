@@ -25,7 +25,8 @@ vim.keymap.set("n", "<leader>t", "<cmd>Themery<cr>", { desc = " Themes" })
 
 vim.keymap.set("n", "<leader>E", "<cmd>Neotree<cr>", { desc = "File exp" })
 
-vim.keymap.set("n", "<leader>R", function()
+-- replace the word under the cursor on lines first..last, previewing the replacement inline
+local function substitute_word(first, last)
 	local word = vim.fn.expand("<cword>")
 	if word == "" then
 		return
@@ -33,8 +34,8 @@ vim.keymap.set("n", "<leader>R", function()
 	local win = vim.api.nvim_get_current_win()
 	local buf = vim.api.nvim_get_current_buf()
 	local pat = [[\V\<]] .. vim.fn.escape(word, [[\/]]) .. [[\>]]
-	local hits = vim.fn.matchbufline(buf, pat, 1, "$")
-	local match = vim.fn.matchadd("Search", pat)
+	local hits = vim.fn.matchbufline(buf, pat, first, last)
+	local match = vim.fn.matchadd("Search", ([[\%%>%dl\%%<%dl]]):format(first - 1, last + 1) .. pat)
 	local ns = vim.api.nvim_create_namespace("substitute_preview")
 	local conceallevel = vim.wo[win].conceallevel
 	-- bare one-line input over the statusline instead of noice's popup or the :s command
@@ -55,7 +56,7 @@ vim.keymap.set("n", "<leader>R", function()
 		vim.api.nvim_buf_clear_namespace(buf, ns, 0, -1)
 		vim.wo[win].conceallevel = conceallevel
 		if repl then
-			vim.cmd(("keeppatterns %%s/%s/%s/g"):format(pat, vim.fn.escape(repl, [[\/&~]])))
+			vim.cmd(("keeppatterns %d,%ds/%s/%s/g"):format(first, last, pat, vim.fn.escape(repl, [[\/&~]])))
 		end
 	end)
 	-- snacks pads the input with a statuscolumn even without a prompt
@@ -77,4 +78,18 @@ vim.keymap.set("n", "<leader>R", function()
 			})
 		end
 	end, { buf = true })
+end
+
+vim.keymap.set("n", "<leader>R", function()
+	substitute_word(1, vim.api.nvim_buf_line_count(0))
 end, { desc = "Substitute word under cursor" })
+
+vim.keymap.set("x", "<leader>R", function()
+	local first, last = vim.fn.line("v"), vim.fn.line(".")
+	if first > last then
+		first, last = last, first
+	end
+	-- leave visual mode so the input and :s don't act on the selection
+	vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
+	substitute_word(first, last)
+end, { desc = "Substitute word under cursor in selected lines" })

@@ -9,6 +9,14 @@ vim.opt.background = "dark"
 
 vim.g.lazyvim_python_lsp = "ty"
 vim.g.lazyvim_ts_lsp = "tsc"
+-- copilot as inline ghost text, not a blink menu entry
+vim.g.ai_cmp = false
+
+-- launcher-started nvim lacks zshrc's PATH, and the TS 7 tsc lives in bun's bin
+local bun_bin = vim.fn.expand("~/.bun/bin")
+if not vim.env.PATH:find(bun_bin, 1, true) then
+	vim.env.PATH = bun_bin .. ":" .. vim.env.PATH
+end
 
 --require("vim._core.ui2").enable({})
 
