@@ -18,9 +18,19 @@ return {
 					chain = { enabled = true },
 				},
 				compile = { nullAnalysis = { mode = "automatic" } },
-				configuration = { updateBuildConfiguration = "automatic" },
 				implementationCodeLens = "all",
 				symbols = { includeSourceMethodDeclarations = true },
+				configuration = {
+					updateBuildConfiguration = "automatic",
+					-- folders without a build file compile against the default runtime, not jdtls's own JVM
+					runtimes = {
+						{
+							name = "JavaSE-21",
+							path = "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+							default = true,
+						},
+					},
+				},
 			},
 		},
 	},

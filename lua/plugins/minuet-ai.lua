@@ -1,33 +1,3 @@
--- Cached: the prompt hook runs on every request, and debounce is 25ms.
-local dir_cache = {}
-
-local function dir_listing(bufnr)
-	local file = vim.api.nvim_buf_get_name(bufnr)
-	if file == "" then
-		return ""
-	end
-	local dir = vim.fs.dirname(file)
-	local hit = dir_cache[dir]
-	if hit and vim.uv.now() - hit.at < 30000 then
-		return hit.text
-	end
-
-	local names = {}
-	for name, type_ in vim.fs.dir(dir) do
-		if not name:match("^%.") then
-			names[#names + 1] = type_ == "directory" and name .. "/" or name
-		end
-		if #names >= 40 then
-			break
-		end
-	end
-	table.sort(names)
-
-	local text = #names > 0 and "sibling files: " .. table.concat(names, ", ") or ""
-	dir_cache[dir] = { at = vim.uv.now(), text = text }
-	return text
-end
-
 -- Declaration signatures from nvim-treesitter-textobjects' queries, so there is
 -- no hand-maintained node-type list to keep in sync per language.
 local outline_cache = {}
@@ -214,9 +184,9 @@ local function fim_prompt(prefix, suffix, _)
 	local bufnr = vim.api.nvim_get_current_buf()
 	local path = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":~:.")
 
-	local header = { path ~= "" and "path: " .. path or "", dir_listing(bufnr) }
+	local header = { path ~= "" and "path: " .. path or "" }
 	-- Char budget for the outline; the rest of the header is a few lines.
-	vim.list_extend(header, structure(bufnr, prefix, suffix, 600))
+	vim.list_extend(header, structure(bufnr, prefix, suffix, 300))
 
 	return mu.add_language_comment() .. "\n" .. mu.add_tab_comment() .. "\n" .. commented(header) .. "\n" .. prefix
 end
@@ -228,7 +198,7 @@ return {
 	dependencies = { "nvim-lua/plenary.nvim", "nvim-treesitter/nvim-treesitter-textobjects" },
 	enabled = false,
 	opts = {
-		context_window = 2048,
+		context_window = 4000,
 		context_ratio = 0.7,
 		-- Minuet fires one request per completion; there's no prev/next key to
 		-- cycle them anyway.
@@ -236,7 +206,8 @@ return {
 		-- The default 1000ms throttle skips the request after you stop typing if
 		-- one was sent less than a second earlier, leaving an old suggestion.
 		throttle = 25,
-		debounce = 25,
+		-- Typing gaps are ~150-250ms, so anything shorter fires on nearly every key.
+		debounce = 300,
 		add_single_line_entry = true,
 		-- Switch between "codestral" and "openai_fim_compatible" (DeepSeek) to compare.
 		provider = "codestral",
@@ -291,24 +262,35 @@ return {
 	config = function(_, opts)
 		require("minuet").setup(opts)
 
-		-- Minuet shows a response even if you kept typing while it was in flight,
-		-- which puts a suggestion meant for an earlier cursor position at the
-		-- current one. Drop responses once the buffer or cursor has changed.
+		-- A response that lands after you kept typing is meant for an earlier cursor
+		-- position. Keep it only if what you typed since is its prefix, trimmed off,
+		-- so fast typing that agrees with the model still gets the rest of it.
 		local backend = require("minuet.backends." .. opts.provider)
 		local complete = backend.complete
 		backend.complete = function(context, callback)
 			local buf = vim.api.nvim_get_current_buf()
-			local tick = vim.api.nvim_buf_get_changedtick(buf)
-			local cursor = vim.api.nvim_win_get_cursor(0)
+			local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+			local before = vim.api.nvim_get_current_line():sub(1, col)
 			complete(context, function(data)
-				if
-					vim.api.nvim_get_current_buf() ~= buf
-					or vim.api.nvim_buf_get_changedtick(buf) ~= tick
-					or not vim.deep_equal(vim.api.nvim_win_get_cursor(0), cursor)
-				then
+				local now_row, now_col = unpack(vim.api.nvim_win_get_cursor(0))
+				if vim.api.nvim_get_current_buf() ~= buf or now_row ~= row or now_col < col then
 					return
 				end
-				callback(data)
+				local now = vim.api.nvim_get_current_line():sub(1, now_col)
+				if now:sub(1, col) ~= before then
+					return
+				end
+
+				local typed = now:sub(col + 1)
+				local kept = {}
+				for _, item in ipairs(data or {}) do
+					if item:sub(1, #typed) == typed and #item > #typed then
+						kept[#kept + 1] = item:sub(#typed + 1)
+					end
+				end
+				if #kept > 0 then
+					callback(kept)
+				end
 			end)
 		end
 	end,

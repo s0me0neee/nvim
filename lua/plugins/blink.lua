@@ -49,16 +49,9 @@ return {
 			["<Down>"] = { "select_next" },
 			["<Up>"] = { "select_prev" },
 			["<CR>"] = { "select_and_accept", "fallback" },
-			-- LazyVim's default chain (snippet jump, AI accept), then step over a closing bracket/quote
 			["<Tab>"] = {
 				function()
 					return LazyVim.cmp.map({ "snippet_forward", "ai_nes", "ai_accept" })()
-				end,
-				function()
-					local col = vim.api.nvim_win_get_cursor(0)[2]
-					local next = vim.api.nvim_get_current_line():sub(col + 1, col + 1)
-					-- <C-g>U keeps the whole insert one undo step
-					return next:match("[%)%]}\"'`]") and vim.keycode("<C-g>U<Right>") or nil
 				end,
 				"fallback",
 			},

@@ -165,3 +165,13 @@ vim.keymap.set("x", "<leader>R", function()
 	vim.api.nvim_feedkeys(vim.keycode("<Esc>"), "nx", false)
 	substitute_word(first, last)
 end, { desc = "Substitute word under cursor in selected lines" })
+
+-- only y and d fill the clipboard; an explicitly named register ("ac) is still honored
+for _, key in ipairs({ "c", "C", "x", "X" }) do
+	vim.keymap.set({ "n", "x" }, key, function()
+		local reg = vim.v.register
+		return (reg == '"' or reg == "+" or reg == "*") and '"_' .. key or key
+	end, { expr = true })
+end
+-- visual P replaces the selection without yanking it
+vim.keymap.set("x", "p", "P")

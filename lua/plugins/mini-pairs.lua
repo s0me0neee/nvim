@@ -8,7 +8,6 @@ local function quote(pair, not_after)
 	}
 end
 
--- <Tab> to step over a closing pair lives in blink.lua, since blink owns insert-mode <Tab>
 return {
 	"nvim-mini/mini.pairs",
 	opts = {

@@ -2,6 +2,26 @@
 
 require("config.term-jump").setup()
 
+local function dark_bg(group)
+	local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
+	if hl.reverse or not hl.bg then
+		return nil
+	end
+	local r, g, b = bit.rshift(hl.bg, 16), bit.band(bit.rshift(hl.bg, 8), 0xff), bit.band(hl.bg, 0xff)
+	return (0.299 * r + 0.587 * g + 0.114 * b) / 255 < 0.35 and hl.bg or nil
+end
+
+-- reversed or bright selections swap/wash out the per-token label colors, so use a plain dark bg
+local function blink_selection()
+	local bg = dark_bg("PmenuSel") or dark_bg("Visual") or dark_bg("CursorLine")
+	vim.api.nvim_set_hl(0, "BlinkCmpMenuSelection", { bg = bg })
+end
+blink_selection()
+vim.api.nvim_create_autocmd("ColorScheme", {
+	group = vim.api.nvim_create_augroup("blink_selection", { clear = true }),
+	callback = blink_selection,
+})
+
 -- same group name as LazyVim's so this replaces its yank highlight instead of stacking on it
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("lazyvim_highlight_yank", { clear = true }),
