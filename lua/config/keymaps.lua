@@ -1,3 +1,75 @@
+-- LazyVim core and Neovim default maps I don't use or that duplicate another key
+-- (plugin keys are removed in plugins/removed-keys.lua); pcall: some may not exist
+for _, lhs in ipairs({
+	"<leader>`", -- = <leader>bb
+	"[b", -- = H
+	"]b", -- = L
+	"<leader>ft", -- = <C-/>
+	"<leader>uZ", -- = <leader>wm
+	"<leader>xq",
+	"<leader>xl",
+	"<leader>dpp",
+	"<leader>dph",
+	"<leader>uA",
+	"<leader>ua",
+	"<leader>uS",
+	"<leader>uD",
+	"<leader>K",
+	"<C-w>d", -- = <leader>cd
+	"<C-w><C-d>",
+	"gO",
+	"[a",
+	"]a",
+	"[A",
+	"]A",
+	"[T",
+	"]T",
+	"[<C-q>",
+	"]<C-q>",
+	"[<C-l>",
+	"]<C-l>",
+	"[<C-t>",
+	"]<C-t>",
+	"[L",
+	"]L",
+	"[Q",
+	"]Q",
+	"[l",
+	"]l",
+	"[D",
+	"]D",
+	"[B", -- built-in :brewind, exposed once bufferline's [B was removed
+	"]B",
+	"[d",
+	"]d",
+	"[e",
+	"]e",
+	"[w",
+	"]w",
+	"<leader>uc",
+	"<leader><Tab><Tab>",
+	"<leader><Tab>[",
+	"<leader><Tab>]",
+	"<leader><Tab>d",
+	"<leader><Tab>f",
+	"<leader><Tab>l",
+	"<leader><Tab>o",
+}) do
+	pcall(vim.keymap.del, "n", lhs)
+end
+for _, lhs in ipairs({ "[n", "]n", "[N", "]N" }) do
+	pcall(vim.keymap.del, "x", lhs)
+end
+
+-- built-in commands (window splits/close, q: cmdline window), not maps, so they can only be disabled
+for _, lhs in ipairs({ "<C-w>s", "<C-w>v", "<C-w>c", "q:" }) do
+	vim.keymap.set("n", lhs, "<Nop>")
+end
+-- LazyVim defines these as remaps of the <C-w> keys above, so give them the commands directly
+vim.keymap.set("n", "<leader>-", "<cmd>split<cr>", { desc = "Split Window Below" })
+vim.keymap.set("n", "<leader>|", "<cmd>vsplit<cr>", { desc = "Split Window Right" })
+vim.keymap.set("n", "<leader>wd", "<cmd>close<cr>", { desc = "Delete Window" })
+
 -- LazyVim's <esc> plus closing noice's hover/signature popup, which only auto-closes on cursor move
 vim.keymap.set("n", "<esc>", function()
 	vim.cmd("noh")
