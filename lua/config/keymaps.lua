@@ -69,6 +69,8 @@ end
 vim.keymap.set("n", "<leader>-", "<cmd>split<cr>", { desc = "Split Window Below" })
 vim.keymap.set("n", "<leader>|", "<cmd>vsplit<cr>", { desc = "Split Window Right" })
 vim.keymap.set("n", "<leader>wd", "<cmd>close<cr>", { desc = "Delete Window" })
+vim.keymap.set("n", "<leader>ws", "<cmd>split<cr>", { desc = "Split Window Below" })
+vim.keymap.set("n", "<leader>wv", "<cmd>vsplit<cr>", { desc = "Split Window Right" })
 
 -- LazyVim's <esc> plus closing noice's hover/signature popup, which only auto-closes on cursor move
 vim.keymap.set("n", "<esc>", function()
